@@ -3,7 +3,7 @@
  * @Describe: 2D 摄像机（滚动的矩形区域）
  * @Date: 2018-09-09 23:18:25 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-09 23:51:23
+ * @Last Modified time: 2018-09-11 00:02:38
  */
 
 class Camera2D {
@@ -31,13 +31,13 @@ class Camera2D {
         this._pos.y = this._focusTarget.y - (GameConfig.deviceH >> 1);
         if(this._focusTarget) {
             
-            if(this._focusTarget.x + (GameConfig.deviceW >> 1) < WorldMap.I.mapW
+            if(this._focusTarget.x + (GameConfig.deviceW >> 1) < WorldMap.I.mapAttr.mapW
             && this._focusTarget.x - (GameConfig.deviceW >> 1) > 0
             ) {
                 this._cameraView.x += (this._pos.x - this._cameraView.x) * Laya.timer.delta * this._ease;
             }
         
-            if(this._focusTarget.y + (GameConfig.deviceH >> 1) < WorldMap.I.mapH
+            if(this._focusTarget.y + (GameConfig.deviceH >> 1) < WorldMap.I.mapAttr.mapH
             && this._focusTarget.y - (GameConfig.deviceH >> 1) > 0
             ) {
                 this._cameraView.y += (this._pos.y - this._cameraView.y) * Laya.timer.delta * this._ease;

@@ -3,7 +3,7 @@
  * @Describe: 场景管理器
  * @Date: 2018-09-09 21:21:48 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-09 23:38:15
+ * @Last Modified time: 2018-09-10 23:47:48
  */
 
 class SceneManager{
@@ -53,6 +53,7 @@ class SceneManager{
     public update(): void {
         if(this._camera2D)
             this._camera2D.update();
+        WorldMap.I.update();
     }
 
     public getMousePos(): Laya.Point {

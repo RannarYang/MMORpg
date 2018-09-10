@@ -8,6 +8,7 @@ class ObjDictionary{
      */
     constructor(strongType = null) {
         this._strongType = strongType;
+        this._length = 0;
         this._container = {};
     }
     private _container: Object;
