@@ -1,0 +1,14 @@
+{
+    "type": "ShurikenParticleMaterial",
+    "props":
+    {
+        "name": "eff_tex_pxk_glow_00071"
+    },
+    "customProps":
+    {
+        "diffuseTexture":
+        {
+            "texture2D": "~Assets\/tex\/eff_tex_pxk_glow_00071.png"
+        }
+    }
+}
