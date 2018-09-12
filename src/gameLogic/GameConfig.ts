@@ -2,15 +2,19 @@
  * @Author: RannarYang
  * @Describe: 
  * @Date: 2018-09-09 23:21:49 
- * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-10 23:12:55
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-09-12 19:26:49
  */
 
 class GameConfig{
     /**设备宽度 */
-    public static deviceW: number = 1136;
+    public static DeviceW: number = 1136;
     /**设备高度 */
-    public static deviceH: number = 640;
+    public static DeviceH: number = 640;
 
+    public static OrthographicVerticalSize: number = 10;
+		
+    public static CameraAspectRatio: number = 1.775;
     
+    public static UnitPerPixel: number = 0.015625;    //1/64
 }

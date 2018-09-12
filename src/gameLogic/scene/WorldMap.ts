@@ -2,8 +2,8 @@
  * @Author: RannarYang
  * @Describe: 世界地图
  * @Date: 2018-09-09 22:47:11 
- * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-11 00:06:20
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-09-12 19:25:06
  */
 
 class WorldMap{
@@ -42,7 +42,7 @@ class WorldMap{
     }
 
     public update(): void {
-        let camView: Laya.Rectangle = SceneManager.I.camera2D.cameraView;
+        let camView: Laya.Rectangle = SceneManager.I.camera2d.cameraView;
         let tiles: ObjDictionary = this.getNeedLoadTile(camView.x, camView.y);
         this.loadTiles(tiles);
     }
@@ -84,7 +84,7 @@ class WorldMap{
         let tileW: number = this._mapAttr.mapTileW;
         let tileH: number = this._mapAttr.mapTileH;
         
-        let rect: Laya.Rectangle = new Laya.Rectangle(camX - tileW, camY - tileH, GameConfig.deviceW + 2 * tileW, GameConfig.deviceH + 2 * tileH);
+        let rect: Laya.Rectangle = new Laya.Rectangle(camX - tileW, camY - tileH, GameConfig.DeviceW + 2 * tileW, GameConfig.DeviceH + 2 * tileH);
         let p1: Laya.Point = this.scenePosToGrid(rect.x, rect.y);
         let p2: Laya.Point = this.scenePosToGrid(rect.right, rect.bottom);
 

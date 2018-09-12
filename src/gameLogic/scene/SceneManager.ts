@@ -2,12 +2,11 @@
  * @Author: RannarYang
  * @Describe: 场景管理器
  * @Date: 2018-09-09 21:21:48 
- * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-10 23:47:48
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-09-12 19:38:34
  */
 
 class SceneManager{
-    private _scene: Laya.Sprite;
 
     private _layer_map: Laya.Sprite;
     private _layer_actor: Laya.Sprite;
@@ -15,11 +14,24 @@ class SceneManager{
     
     private _layerDic: ObjDictionary;
 
-    private _camera2D: Camera2D;
-    public get camera2D() {
-        return this._camera2D;
+    private _scene: Laya.Sprite;
+    public get scene(): Laya.Sprite {
+        return this._scene;
+    }
+    private _camera2d: Camera2D;
+
+    private _scene3d: Laya.Scene;
+    private _container3d: Laya.Sprite3D;
+    private _camera3d: Laya.Camera;
+
+    public get camera2d() {
+        return this._camera2d;
     }
     public init(): void {
+        this.init2d();
+        this.init3d();
+    }
+    private init2d(): void {
         this._scene = new Laya.Sprite();
         this._layer_map = new Laya.Sprite();
         this._layer_actor = new Laya.Sprite();
@@ -36,7 +48,23 @@ class SceneManager{
 
         Laya.stage.addChild(this._scene);
 
-        this._camera2D = new Camera2D(this._scene);
+        this._camera2d = new Camera2D(this._scene);
+    }
+
+    private init3d(): void {
+        this._scene3d = new Laya.Scene();
+        Laya.stage.addChild(this._scene3d);
+        // camera
+        let camera3d = this._camera3d = new Laya.Camera(0, 0.1, 300);
+        this._scene3d.addChild(camera3d);
+        camera3d.transform.translate(new Laya.Vector3(0,0,150));
+        camera3d.orthographic = true;
+        camera3d.orthographicVerticalSize = 10;
+        camera3d.viewport = new Laya.Viewport(0, 0, GameConfig.DeviceW, GameConfig.DeviceH);
+
+        let container3d = this._container3d = new Laya.Sprite3D();
+        container3d.transform.rotationEuler = new Laya.Vector3(Tools.A2R(30));
+        this._scene3d.addChild(container3d);
     }
 
     public addToLayer(spr: Laya.Sprite, layer: string, posX: number = 0, posY: number = 0): void {
@@ -50,9 +78,13 @@ class SceneManager{
         }
     }
 
+    public addToContainer3d(obj) {
+        this._container3d.addChild(obj);
+    }
+
     public update(): void {
-        if(this._camera2D)
-            this._camera2D.update();
+        if(this._camera2d)
+            this._camera2d.update();
         WorldMap.I.update();
     }
 
