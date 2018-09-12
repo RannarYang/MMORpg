@@ -2,11 +2,11 @@
  * @Author: RannarYang
  * @Describe: 角色类
  * @Date: 2018-09-09 22:51:02 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-09-12 19:39:17
+ * @Last Modified by: RannarYang
+ * @Last Modified time: 2018-09-12 23:18:29
  */
 
-class Player{
+class Player extends ActorBase{
     protected _disObj: Laya.Sprite;
     public get disObj(): Laya.Sprite {
         return this._disObj;
@@ -14,7 +14,8 @@ class Player{
 
     protected _disObj3d: Laya.Sprite3D;
     
-    constructor(){
+    constructor(actorType: number, actorCamp: number){
+        super(actorType, actorCamp);
         this._disObj = new Laya.Sprite();
         let spr: Laya.Sprite = Laya.Sprite.fromImage("res/player.png");
         this._disObj.addChild(spr);   
@@ -61,7 +62,7 @@ class Player{
     private static instance: Player;
     public static get I(): Player {
         if(!this.instance) {
-            this.instance = new Player();
+            this.instance = new Player(ActorType.Player, ActorCamp.Player);
         }
         return this.instance;
     }

@@ -16,6 +16,10 @@ class Main {
         SceneManager.I.addToLayer(Player.I.disObj, LayerEnum.ActorLayer, 1024, 1024);
         SceneManager.I.camera2d.focus(Player.I.disObj);
 
+        Player.I.actorPropertyManager.setBaseProperty(ActorPropertyType.HP, 1000);
+        console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
+        console.log(Player.I.actorPropertyManager.changeProperty(ActorPropertyType.HP, -200))
+        console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
         Laya.timer.frameLoop(1, this, this.update);
     }
     private update(): void {

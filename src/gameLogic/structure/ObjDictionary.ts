@@ -29,7 +29,7 @@ class ObjDictionary{
             this._length++;
         this._container[key] = value;
     }
-    public resizeTo(key: any, value: any): void {
+    public reset(key: any, value: any): void {
         if(this._strongType && value instanceof this._strongType) {
             throw new Error("Obj Dictionary [add] Type check Error, Need " + this._strongType);
         }
@@ -51,7 +51,7 @@ class ObjDictionary{
     }
 
     public containsKey(key: any): boolean {
-        return this._container[key];
+        return this._container.hasOwnProperty(key);
     }
 
     public clear() {
