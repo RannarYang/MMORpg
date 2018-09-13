@@ -13,8 +13,8 @@ class Main {
         SceneManager.I.init();
         InputManager.I.init();
         SceneManager.I.addToLayer(WorldMap.I.container, LayerEnum.MapLayer);
-        SceneManager.I.addToLayer(Player.I.disObj, LayerEnum.ActorLayer, 1024, 1024);
-        SceneManager.I.camera2d.focus(Player.I.disObj);
+        SceneManager.I.addToLayer(Player.I.disObjCtrl.disObj, LayerEnum.ActorLayer, 1024, 1024);
+        SceneManager.I.camera2d.focus(Player.I.disObjCtrl.disObj);
 
         Laya.timer.frameLoop(1, this, this.update);
     }
