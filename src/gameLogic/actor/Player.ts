@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-09 22:51:02 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-12 23:18:29
+ * @Last Modified time: 2018-09-13 23:18:08
  */
 
 class Player extends ActorBase{
@@ -14,6 +14,8 @@ class Player extends ActorBase{
 
     protected _disObj3d: Laya.Sprite3D;
     
+    protected _aniController: AnimationController;
+
     constructor(actorType: number, actorCamp: number){
         super(actorType, actorCamp);
         this._disObj = new Laya.Sprite();
@@ -21,9 +23,10 @@ class Player extends ActorBase{
         this._disObj.addChild(spr);   
         spr.x = -48;
         spr.y = -48;    
+
         this.create3dObj(); 
     }
-
+    
     private create3dObj(): void {
         let _disObj3d = this._disObj3d = Laya.Sprite3D.load("res/models/cike/cike.lh");
         SceneManager.I.addToContainer3d(_disObj3d);
@@ -34,12 +37,23 @@ class Player extends ActorBase{
             if(ms3d) {
                 let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
                 skinAni.templet = Laya.AnimationTemplet.load("res/models/cike/cike.lsani");
-                skinAni.player.play();
+                this._aniController = new AnimationController(skinAni);
+
+                this._aniController.playAni(0, 50, 25, false, Laya.Handler.create(this, this.keyFrameCallBack), Laya.Handler.create(this, this.aniCmpCallBack))
             }
         })
     }
+    private keyFrameCallBack(): void {
+        console.error("key frame trigger");
+    }
 
+    private aniCmpCallBack(): void {
+        console.error("aniCmpCallBack")
+    }
     public update(): void {
+        if(this._aniController) {
+            this._aniController.update();
+        }
         if(this._disObj && this._disObj3d) {
             let pos2d: Laya.Vector3 = this.getGlobalVec3();
             let pos3d: Laya.Vector3 = new Laya.Vector3();
