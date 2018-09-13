@@ -29,6 +29,13 @@ class Player extends ActorBase{
         SceneManager.I.addToContainer3d(_disObj3d);
         _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
             _disObj3d.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
+
+            let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName("mod_CiKeZhuangBei_Body_03") as Laya.MeshSprite3D;
+            if(ms3d) {
+                let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
+                skinAni.templet = Laya.AnimationTemplet.load("res/models/cike/cike.lsani");
+                skinAni.player.play();
+            }
         })
     }
 
