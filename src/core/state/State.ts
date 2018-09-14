@@ -3,7 +3,7 @@
  * @Describe: 状态基类
  * @Date: 2018-09-13 23:43:17 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 00:01:40
+ * @Last Modified time: 2018-09-14 22:33:54
  */
 
 class State{
@@ -20,8 +20,8 @@ class State{
     public onUpdate(): void {
         
     }
-    constructor(){
-
+    constructor(owner: Object){
+        this._owner = owner;
     }
     public getStateKey(): string {
         return StateMachine.InvalidState;

@@ -3,7 +3,7 @@
  * @Describe: 动画控制器
  * @Date: 2018-09-13 22:47:28 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-13 23:18:09
+ * @Last Modified time: 2018-09-14 23:27:15
  */
 
 class AnimationController{
@@ -36,27 +36,23 @@ class AnimationController{
         }
     }
 
-    public stop(immediate: boolean = true): void {
-        this._isPlaying = false;
-        this._skinAni.player.stop(immediate);
-        if(this._keyFrameHandler) {
-            this._keyFrameHandler.recover();
-            this._keyFrameHandler = null;
-        }
-        if(this._onAnimCmp) {
-            this._onAnimCmp.recover();
-            this._onAnimCmp = null;
-        }
-        this._keyFrame = -1;
-    }
+    
 
     private onAnimFinish() : void {
         this._isPlaying = false;
         if(this._onAnimCmp) {
             this._onAnimCmp.run();
-            this._onAnimCmp.recover();
+            // this._onAnimCmp.recover();
             this._onAnimCmp = null;
         }
+    }
+
+    public stop(immediate: boolean = true): void {
+        this._isPlaying = false;
+        this._skinAni.player.stop(immediate);
+        this._keyFrameHandler = null;
+        this._onAnimCmp = null;
+        this._keyFrame = -1;
     }
 
     public update(): void {
@@ -64,7 +60,6 @@ class AnimationController{
             if(this._keyFrame > 0 && this._keyFrameHandler) {
                 if(this._skinAni.player.currentKeyframeIndex > 2 * this._keyFrame) {
                     this._keyFrameHandler.run();
-                    this._keyFrameHandler.recover();
                     this._keyFrameHandler = null;
                 }
             }

@@ -3,7 +3,7 @@
  * @Describe: 状态机
  * @Date: 2018-09-13 23:46:27 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 00:03:42
+ * @Last Modified time: 2018-09-14 23:10:30
  */
 
 class StateMachine {
@@ -21,7 +21,8 @@ class StateMachine {
     public set owner(value: Object) {
         this._owner = value;
     }
-    constructor(){
+    constructor(owner: Actor){
+        this._owner = owner; 
         this._stateDic = new ObjDictionary();
     }
 
@@ -42,7 +43,7 @@ class StateMachine {
             console.warn("unregister state: ", stateKey);
             return;
         }
-        if(!this._currentState) {
+        if(this._currentState) {
             this._currentState.onLeave(newState.getStateKey());
         }
         this._currentState = newState;

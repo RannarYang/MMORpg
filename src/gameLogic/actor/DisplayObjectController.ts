@@ -3,12 +3,12 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-13 23:37:21
+ * @Last Modified time: 2018-09-14 22:38:39
  */
 
 class DisplayObjectController{
 
-    protected _owner: ActorBase;
+    protected _owner: Actor;
     
     protected _disObj: Laya.Sprite;
     public get disObj(): Laya.Sprite {
@@ -18,8 +18,15 @@ class DisplayObjectController{
     protected _disObj3d: Laya.Sprite3D;
     
     protected _aniController: AnimationController;
+    public get aniController(): AnimationController {
+        return this._aniController;
+    }
 
-    constructor(owner: ActorBase){
+    protected _isObj3dLoaded: boolean = false;
+    public get isObj3dLoaded(): boolean {
+        return this._isObj3dLoaded;
+    }
+    constructor(owner: Actor){
         this._owner = owner;
         this.create2dObj();
         this.create3dObj();
@@ -36,6 +43,7 @@ class DisplayObjectController{
         let _disObj3d = this._disObj3d = Laya.Sprite3D.load("res/models/cike/cike.lh");
         SceneManager.I.addToContainer3d(_disObj3d);
         _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
+            this._isObj3dLoaded = true;
             _disObj3d.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
 
             let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName("mod_CiKeZhuangBei_Body_03") as Laya.MeshSprite3D;

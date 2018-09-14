@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-09 23:39:16
+ * @Last Modified time: 2018-09-14 23:19:41
  */
 
 class InputManager{
@@ -13,6 +13,19 @@ class InputManager{
 
     public init(): void{
         Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
+        Laya.stage.on(Laya.Event.KEY_DOWN, this, this.onKeyDown);
+    }
+    private onKeyDown(e: any = null): void {
+        if(e){
+            switch(e["keyCode"]) {
+                case 81: // Q
+                    Player.I.changeState(ActorState.Move);
+                    break;
+                case 87: // W
+                    Player.I.changeState(ActorState.Skill);
+                    break;
+            }
+        }
     }
     private mouseHandler(e: Laya.Event): void {
         let pos: Laya.Point = SceneManager.I.getMousePos();

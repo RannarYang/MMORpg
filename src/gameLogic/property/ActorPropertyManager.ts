@@ -3,17 +3,17 @@
  * @Describe: 属性管理器
  * @Date: 2018-09-12 23:41:11 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-13 00:03:23
+ * @Last Modified time: 2018-09-14 22:27:16
  */
 
 class ActorPropertyManager{
 
-    private _owner: ActorBase;
+    private _owner: Actor;
 
     protected _baseProperty: ActorProperty;
     protected _deltaProperty: ActorProperty;
 
-    constructor(owner: ActorBase){
+    constructor(owner: Actor){
         this._owner = owner;
         this._baseProperty = new ActorProperty();
         this._deltaProperty = new ActorProperty();

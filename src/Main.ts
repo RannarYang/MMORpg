@@ -16,6 +16,8 @@ class Main {
         SceneManager.I.addToLayer(Player.I.disObjCtrl.disObj, LayerEnum.ActorLayer, 1024, 1024);
         SceneManager.I.camera2d.focus(Player.I.disObjCtrl.disObj);
 
+        Player.I.changeState(ActorState.Idle);
+
         Laya.timer.frameLoop(1, this, this.update);
     }
     private update(): void {
