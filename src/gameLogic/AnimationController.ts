@@ -3,7 +3,7 @@
  * @Describe: 动画控制器
  * @Date: 2018-09-13 22:47:28 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 14:38:56
+ * @Last Modified time: 2018-09-15 15:25:44
  */
 
 class AnimationController{
@@ -16,7 +16,6 @@ class AnimationController{
 
     private _keyFrameHandler: Laya.Handler;
 
-    private _keyFrame: number = -1;
     private _keyFrames: number[];
 
     private _isPlaying: boolean = false;
@@ -48,25 +47,14 @@ class AnimationController{
         }
     }
 
-    public playAni(startFrame: number, endFrame: number, keyframe: number = -1, isLoop: boolean = false, keyframeHandler: Laya.Handler = null, aniCmpHandler: Laya.Handler = null): void {
-        if(this._skinAni) {
-            this._isPlaying = true;
-            let count: number = isLoop ? Number.MAX_VALUE : 0;
-            this._onAnimCmp = aniCmpHandler;
-            this._keyFrameHandler = keyframeHandler;
-            this._keyFrame = keyframe;
-            this._skinAni.player.on(Laya.Event.STOPPED, this, this.onAnimFinish);
-            this._skinAni.player.playByFrame(0, 1, count, startFrame, endFrame);
-        }
-    }
-
-    
 
     private onAnimFinish() : void {
         this._isPlaying = false;
+        this._keyFrames = null;
+        this._keyFrameHandler = null;
+        this._curKeyFrameIndex = 0;
         if(this._onAnimCmp) {
             this._onAnimCmp.run();
-            // this._onAnimCmp.recover();
             this._onAnimCmp = null;
         }
     }
@@ -74,18 +62,26 @@ class AnimationController{
     public stop(immediate: boolean = true): void {
         this._isPlaying = false;
         this._skinAni.player.stop(immediate);
-        this._keyFrameHandler = null;
         this._onAnimCmp = null;
-        this._keyFrame = -1;
+        this._keyFrames = null;
+        this._curKeyFrameIndex = 0;
+        if(this._keyFrameHandler){
+            this._keyFrameHandler.recover();
+            this._keyFrameHandler = null;
+        }
     }
 
+    private _curKeyFrameIndex: number = 0;
     public update(): void {
         if(this._isPlaying) {
-            if(this._keyFrame > 0 && this._keyFrameHandler) {
-                if(this._skinAni.player.currentKeyframeIndex > 2 * this._keyFrame) {
+            if(this._curKeyFrameIndex < this._keyFrames.length && this._keyFrameHandler) {
+                if(this._skinAni.player.currentKeyframeIndex > 2 * this._keyFrames[this._curKeyFrameIndex]) {
+                    this._curKeyFrameIndex ++;
                     this._keyFrameHandler.run();
-                    this._keyFrameHandler = null;
                 }
+            } else if(this._keyFrameHandler){
+                this._keyFrameHandler.recover();
+                this._keyFrameHandler = null;
             }
         }
     }

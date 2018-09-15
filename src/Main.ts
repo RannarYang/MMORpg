@@ -25,7 +25,6 @@ class Main {
         console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
         Player.I.actorPropertyManager.changeProperty(ActorPropertyType.HP, -200);
         console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
-        Player.I.changeState(ActorState.Idle);
         Laya.timer.frameLoop(1, this, this.update);
     }
     private update(): void {
