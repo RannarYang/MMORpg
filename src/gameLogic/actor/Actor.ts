@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 12:06:09
+ * @Last Modified time: 2018-09-15 14:53:31
  */
 
 class Actor extends ActorBase{
@@ -24,9 +24,12 @@ class Actor extends ActorBase{
         return this._stateMachine;
     }
 
+    public _actionDic: ObjDictionary;
+
     constructor(templateID: number, actorType: number, actorCamp: number){
         super(templateID, actorType, actorCamp);
         this.registerStates();
+        this.registerActions();
         this.initProperty();
         this._disObjCtrl = new DisplayObjectController(this);
     }
@@ -34,6 +37,15 @@ class Actor extends ActorBase{
         this._actorPropertyManager = new ActorPropertyManager(this);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.HP, this._actorBean.hp);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Atk, this._actorBean.atk);
+    }
+    protected registerActions(): void {
+        let actionDic = this._actionDic = new ObjDictionary();
+        let res = BeanFactory.getActionBeans(this._templateID);
+        let bean: T_ActionBean;
+        for(let key in res) {
+             bean = res[key];
+             actionDic.add(bean.name, bean.actionID);
+        }
     }
     protected registerStates(): void {
         this._stateMachine = new StateMachine(this);

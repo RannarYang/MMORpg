@@ -300,34 +300,6 @@ module Utils {
 			return timeStr;
 		}
 		// 时间相关 end =======================================================================================================
-		public static trim(input:string):string
-		{
-			return this.ltrim(this.rtrim(input));
-		}
-		public static ltrim(input:string):string
-		{
-			var size:number=input.length;
-			for (var i:number=0; i < size; i++)
-			{
-				if (input.charCodeAt(i) > 32)
-				{
-					return input.substring(i);
-				}
-			}
-			return "";
-		}
-		public static rtrim(input:string):string
-		{
-			var size:number=input.length;
-			for (var i:number=size; i > 0; i--)
-			{
-				if (input.charCodeAt(i - 1) > 32)
-				{
-					return input.substring(0, i);
-				}
-			}
-			return "";
-		}
 		/**
 		 *格式化替换字符串里面的$符号 
 			* @param str
@@ -509,6 +481,28 @@ module Utils {
 			}
 		}
 		
+		public static splitStrToIntArr(str: string, splitStr="+"): number[] {
+			let res = [];
+			let arr = str.split(splitStr);
+			for(let i = 0, len = arr.length; i < len; i++) {
+				res[i] = parseInt(arr[i])
+			}
+			return res;
+		}
 
+		public static isNullOrEmpty(str: string): boolean {
+			if(str != null) {
+				str = this.trim(str);
+				if(str.length > 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public static trim(str: string): string {
+			if(str == null) return str;
+			return str.replace(/([ ]{1})/g,"");
+		}
 	}
 }

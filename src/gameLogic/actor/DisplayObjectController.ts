@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 11:52:11
+ * @Last Modified time: 2018-09-15 14:45:25
  */
 
 class DisplayObjectController{
@@ -50,7 +50,7 @@ class DisplayObjectController{
             if(ms3d) {
                 let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
                 skinAni.templet = Laya.AnimationTemplet.load(this._owner.actorBean.fileAni);
-                this._aniController = new AnimationController(skinAni);
+                this._aniController = new AnimationController(skinAni, this._owner._actionDic);
 
                 this._aniController.playAni(0, 50, -1, false);
             }
