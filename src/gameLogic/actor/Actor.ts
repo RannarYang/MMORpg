@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 23:00:34
+ * @Last Modified time: 2018-09-15 12:06:09
  */
 
 class Actor extends ActorBase{
@@ -24,14 +24,18 @@ class Actor extends ActorBase{
         return this._stateMachine;
     }
 
-    constructor(actorType: number, actorCamp: number){
-        super(actorType, actorCamp);
+    constructor(templateID: number, actorType: number, actorCamp: number){
+        super(templateID, actorType, actorCamp);
         this.registerStates();
-        this._actorPropertyManager = new ActorPropertyManager(this);
+        this.initProperty();
         this._disObjCtrl = new DisplayObjectController(this);
     }
-
-    public registerStates(): void {
+    protected initProperty(): void {
+        this._actorPropertyManager = new ActorPropertyManager(this);
+        this._actorPropertyManager.setBaseProperty(ActorPropertyType.HP, this._actorBean.hp);
+        this._actorPropertyManager.setBaseProperty(ActorPropertyType.Atk, this._actorBean.atk);
+    }
+    protected registerStates(): void {
         this._stateMachine = new StateMachine(this);
         
     }

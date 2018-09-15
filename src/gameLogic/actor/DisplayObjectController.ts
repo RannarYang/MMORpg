@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 22:38:39
+ * @Last Modified time: 2018-09-15 11:52:11
  */
 
 class DisplayObjectController{
@@ -34,22 +34,22 @@ class DisplayObjectController{
 
     private create2dObj(): void {
         this._disObj = new Laya.Sprite();
-        let spr: Laya.Sprite = Laya.Sprite.fromImage("res/player.png");
+        let spr: Laya.Sprite = Laya.Sprite.fromImage(this._owner.actorBean.file2d);
         this._disObj.addChild(spr);   
         spr.x = -48;
         spr.y = -48;  
     }
     private create3dObj(): void {
-        let _disObj3d = this._disObj3d = Laya.Sprite3D.load("res/models/cike/cike.lh");
+        let _disObj3d = this._disObj3d = Laya.Sprite3D.load(this._owner.actorBean.file3d);
         SceneManager.I.addToContainer3d(_disObj3d);
         _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
             this._isObj3dLoaded = true;
             _disObj3d.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
 
-            let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName("mod_CiKeZhuangBei_Body_03") as Laya.MeshSprite3D;
+            let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
             if(ms3d) {
                 let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
-                skinAni.templet = Laya.AnimationTemplet.load("res/models/cike/cike.lsani");
+                skinAni.templet = Laya.AnimationTemplet.load(this._owner.actorBean.fileAni);
                 this._aniController = new AnimationController(skinAni);
 
                 this._aniController.playAni(0, 50, -1, false);
