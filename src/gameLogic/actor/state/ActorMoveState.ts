@@ -3,7 +3,7 @@
  * @Describe: 角色移动状态
  * @Date: 2018-09-14 22:40:05 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 21:42:22
+ * @Last Modified time: 2018-09-16 22:28:13
  */
 
 class ActorMoveState extends ActorBaseState{
@@ -21,7 +21,7 @@ class ActorMoveState extends ActorBaseState{
             if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
                 this._actor.disObjCtrl.aniController.playAniByState(ActorState.Move);
             }
-            this._step = 0;
+            console.log(this._moveParam)
             this.tweenMove();
         }
         
@@ -36,6 +36,7 @@ class ActorMoveState extends ActorBaseState{
             let distance: number = Tools.distancePoint(begin, end);
             let duration: number = Math.round(distance/speed * 1000);
             this._actor.disObjCtrl.changeAngle(end);
+
             // 进行位移
             if(!this._tween) {
                 this._tween = Laya.Tween.to(this._actor.disObjCtrl.disObj, {x: end.x, y: end.y}, duration, Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));

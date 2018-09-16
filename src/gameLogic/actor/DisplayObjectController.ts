@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 18:16:05
+ * @Last Modified time: 2018-09-16 22:14:51
  */
 
 class DisplayObjectController{
@@ -65,6 +65,8 @@ class DisplayObjectController{
             let pos3d: Laya.Vector3 = new Laya.Vector3();
             Tools.screenCoordTo3DCoord(pos2d, pos3d);
             this._disObj3d.transform.position = pos3d;  
+            let isAlhpa: boolean = NavManager.I.isAlpha(this._disObj.x, this._disObj.y);
+            this.toggleAlpha(isAlhpa);
         }
     }
     private getGlobalVec3(): Laya.Vector3 {
@@ -84,5 +86,21 @@ class DisplayObjectController{
         let cur: Laya.Vector3 = this._disObj3d.transform.position;
         let radian: number = Math.atan2(out.y - cur.y, out.x - cur.x);
         this._disObj3d.transform.localRotationEuler = new Laya.Vector3(0, Tools.R2A(radian) + 90, 0,)
+    }
+    private _isAlpha: boolean = false;
+    public toggleAlpha(flag: boolean) {
+        if(!this._isObj3dLoaded) return;
+        if(flag == this._isAlpha) return;
+        this._isAlpha = flag;
+        let val = flag ? 0.7 : 1;
+        let ms3d: Laya.MeshSprite3D = this._disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
+        if(ms3d) {
+            let mat: Laya.StandardMaterial;
+            for(let i: number = 0; i < ms3d.meshRender.sharedMaterials.length; i++) {
+                mat = ms3d.meshRender.sharedMaterials[i];
+                mat.renderMode = Laya.StandardMaterial.RENDERMODE_TRANSPARENT;
+                mat.albedo = new Laya.Vector4(val, val, val, val);
+            }
+        }
     }
 }

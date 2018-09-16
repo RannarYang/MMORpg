@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:00:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 21:10:19
+ * @Last Modified time: 2018-09-16 22:13:33
  */
 
 class NavManager{
@@ -78,6 +78,11 @@ class NavManager{
         res.x = (x + 0.5) * this._gridVO._cellSize; 
         res.y = (y + 0.5) * this._gridVO._cellSize; 
         return res;
+    }
+    public isAlpha(x: number, y:number): boolean {
+        let gridPos: Laya.Point = this.scenePosToGrid(x, y);
+        let node: AStarNode = this._nodeGrid.getNode(gridPos.x, gridPos.y)
+        return node.walkFlag == 2;
     }
     /**单例 */
     private static instance: NavManager;
