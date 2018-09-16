@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 23:19:41
+ * @Last Modified time: 2018-09-16 11:12:47
  */
 
 class InputManager{
@@ -29,7 +29,7 @@ class InputManager{
     }
     private mouseHandler(e: Laya.Event): void {
         let pos: Laya.Point = SceneManager.I.getMousePos();
-        Player.I.moveTo(pos);
+        Player.I.changeState(ActorState.Move, pos);
     }
     /**单例 */
     private static instance: InputManager;

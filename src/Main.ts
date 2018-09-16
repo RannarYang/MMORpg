@@ -5,6 +5,7 @@ class Main {
         Laya3D.init(GameConfig.DeviceW, GameConfig.DeviceH, true);
         Laya.loader.load("res/config/config.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
         // this.init3d();
+        
     }
     private onLoaded() {
         let json:JSON=Laya.loader.getRes("res/config/config.json");

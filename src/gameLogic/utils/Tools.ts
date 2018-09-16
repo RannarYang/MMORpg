@@ -1,11 +1,14 @@
 /*
  * @Author: RannarYang 
  * @Date: 2018-09-12 19:06:24 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-09-12 19:26:30
+ * @Last Modified by: RannarYang
+ * @Last Modified time: 2018-09-16 11:48:18
  */
 
 class Tools{
+    public static distancePoint(src: Laya.Point, des: Laya.Point): number{
+        return Math.sqrt((des.x - src.x) * (des.x - src.x) + (des.y -src.y) * (des.y -src.y));
+    }
     public static R2A(r: number): number {
         return r * 180 / Math.PI;
     }

@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 15:10:18
+ * @Last Modified time: 2018-09-16 11:39:16
  */
 
 class DisplayObjectController{
@@ -37,14 +37,15 @@ class DisplayObjectController{
         let spr: Laya.Sprite = Laya.Sprite.fromImage(this._owner.actorBean.file2d);
         this._disObj.addChild(spr);   
         spr.x = -48;
-        spr.y = -48;  
+        spr.y = -48;
+        this._disObj.visible = false;
     }
     private create3dObj(): void {
         let _disObj3d = this._disObj3d = Laya.Sprite3D.load(this._owner.actorBean.file3d);
         SceneManager.I.addToContainer3d(_disObj3d);
         _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
             this._isObj3dLoaded = true;
-            _disObj3d.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
+            _disObj3d.transform.localScale = new Laya.Vector3(0.1, 0.1, 0.1);
 
             let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
             if(ms3d) {
@@ -75,11 +76,13 @@ class DisplayObjectController{
         }
         return pos;
     }
-
-    private _tween: Laya.Tween;
-    public moveTo(pos: Laya.Point): void {
-        if(this._tween)
-            this._tween.clear();
-        this._tween = Laya.Tween.to(this._disObj, {x: pos.x, y: pos.y}, 1000);
+    public changeAngle(scenePos: Laya.Point) {
+        let globalPos: Laya.Point = SceneManager.I.scene.localToGlobal(scenePos);
+        let src: Laya.Vector3 = new Laya.Vector3(globalPos.x, globalPos.y);
+        let out: Laya.Vector3 = new Laya.Vector3();
+        Tools.screenCoordTo3DCoord(src, out);
+        let cur: Laya.Vector3 = this._disObj3d.transform.position;
+        let radian: number = Math.atan2(out.y - cur.y, out.x - cur.x);
+        this._disObj3d.transform.localRotationEuler = new Laya.Vector3(0, Tools.R2A(radian) + 90, 0,)
     }
 }

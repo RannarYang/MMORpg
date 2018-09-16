@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 14:53:31
+ * @Last Modified time: 2018-09-16 11:53:45
  */
 
 class Actor extends ActorBase{
@@ -37,6 +37,7 @@ class Actor extends ActorBase{
         this._actorPropertyManager = new ActorPropertyManager(this);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.HP, this._actorBean.hp);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Atk, this._actorBean.atk);
+        this._actorPropertyManager.setBaseProperty(ActorPropertyType.Speed, this._actorBean.speed);
     }
     protected registerActions(): void {
         let actionDic = this._actionDic = new ObjDictionary();
@@ -56,11 +57,11 @@ class Actor extends ActorBase{
             this._stateMachine.changeState(stateKey, obj);
         }
     }
-    public moveTo(pos: Laya.Point): void {
-        if(this._disObjCtrl){
-            this._disObjCtrl.moveTo(pos);
-        }
-    }
+    // public moveTo(pos: Laya.Point): void {
+    //     if(this._disObjCtrl){
+    //         this._disObjCtrl.moveTo(pos);
+    //     }
+    // }
     public update(): void {
         if(this._disObjCtrl) {
             this._disObjCtrl.update();

@@ -8,6 +8,8 @@ class T_ActorBean {
     public hp: number; 
     /** 攻击力 */
     public atk: number; 
+    /** 速度 */
+    public speed: number; 
     /** 2d图路径 */
     public file2d: string; 
     /** 3d模型路径 */

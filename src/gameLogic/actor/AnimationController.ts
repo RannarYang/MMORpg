@@ -73,8 +73,8 @@ class AnimationController{
 
     private _curKeyFrameIndex: number = 0;
     public update(): void {
-        if(this._isPlaying) {
-            if(this._curKeyFrameIndex < this._keyFrames.length && this._keyFrameHandler) {
+        if(this._isPlaying && this._keyFrames && this._keyFrames.length > 0 && this._keyFrameHandler) {
+            if(this._curKeyFrameIndex < this._keyFrames.length) {
                 if(this._skinAni.player.currentKeyframeIndex > 2 * this._keyFrames[this._curKeyFrameIndex]) {
                     this._curKeyFrameIndex ++;
                     this._keyFrameHandler.run();

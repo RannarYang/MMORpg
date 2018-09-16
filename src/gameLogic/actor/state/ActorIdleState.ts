@@ -12,10 +12,7 @@ class ActorIdleState extends ActorBaseState{
     }
     public onEnter(obj: Object = null): void {
         if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
-            this._actor.disObjCtrl.aniController.playAniByState(ActorState.Idle, Laya.Handler.create(this, this.keyFrameHandler,null, false));
+            this._actor.disObjCtrl.aniController.playAniByState(ActorState.Idle);
         }
-    }
-    private keyFrameHandler(): void {
-        console.log("actor idle key frame call back")
     }
 }
