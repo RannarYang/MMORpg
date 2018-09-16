@@ -23,9 +23,11 @@ class Main {
         SceneManager.I.addToLayer(Player.I.disObjCtrl.disObj, LayerEnum.ActorLayer, 1024, 1024);
         SceneManager.I.camera2d.focus(Player.I.disObjCtrl.disObj);
 
-        console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
         Player.I.actorPropertyManager.changeProperty(ActorPropertyType.HP, -200);
-        console.log(Player.I.actorPropertyManager.getProperty(ActorPropertyType.HP))
+
+        var grid: GridView = new GridView();
+        SceneManager.I.addToLayer(grid, LayerEnum.DebugLayer)
+
         Laya.timer.frameLoop(1, this, this.update);
     }
     private update(): void {

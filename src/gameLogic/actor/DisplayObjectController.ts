@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 11:39:16
+ * @Last Modified time: 2018-09-16 18:16:05
  */
 
 class DisplayObjectController{
@@ -77,7 +77,7 @@ class DisplayObjectController{
         return pos;
     }
     public changeAngle(scenePos: Laya.Point) {
-        let globalPos: Laya.Point = SceneManager.I.scene.localToGlobal(scenePos);
+        let globalPos: Laya.Point = SceneManager.I.scene.localToGlobal(scenePos, true);
         let src: Laya.Vector3 = new Laya.Vector3(globalPos.x, globalPos.y);
         let out: Laya.Vector3 = new Laya.Vector3();
         Tools.screenCoordTo3DCoord(src, out);

@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 11:12:47
+ * @Last Modified time: 2018-09-16 18:10:11
  */
 
 class InputManager{
@@ -28,8 +28,18 @@ class InputManager{
         }
     }
     private mouseHandler(e: Laya.Event): void {
-        let pos: Laya.Point = SceneManager.I.getMousePos();
-        Player.I.changeState(ActorState.Move, pos);
+        // 检查鼠标点击的地方是否可以行走
+        
+        let targetPoint: Laya.Point = SceneManager.I.getMousePos();
+        let startX: number = Player.I.disObjCtrl.disObj.x;
+        let startY: number = Player.I.disObjCtrl.disObj.y;
+
+        let path: Laya.Point[] = NavManager.I.findPathByScenePos(startX, startY, targetPoint.x, targetPoint.y);
+        DebugTools.drawPath(path);
+
+        let moveParam: ActorMoveParam = new ActorMoveParam();
+        moveParam.path = path;
+        Player.I.changeState(ActorState.Move, moveParam);
     }
     /**单例 */
     private static instance: InputManager;

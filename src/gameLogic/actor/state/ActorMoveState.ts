@@ -3,7 +3,7 @@
  * @Describe: 角色移动状态
  * @Date: 2018-09-14 22:40:05 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 11:49:41
+ * @Last Modified time: 2018-09-16 18:12:22
  */
 
 class ActorMoveState extends ActorBaseState{
@@ -11,38 +11,52 @@ class ActorMoveState extends ActorBaseState{
         super(owner);
     }
     private _tween: Laya.Tween;
-    private _targetPos: Laya.Point;
+    private _moveParam: ActorMoveParam;
     public onEnter(obj: Object = null): void {
-        this._targetPos = obj as Laya.Point;
-        if(!obj) {
+        let moveParam = this._moveParam = obj as ActorMoveParam;
+        if(!moveParam || !moveParam.path) {
             console.warn("ActorMoveState obj param is null");
             this._actor.changeState(ActorState.Idle);
         } else {
             if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
                 this._actor.disObjCtrl.aniController.playAniByState(ActorState.Move);
             }
-
-            let speed: number = this._actor.actorPropertyManager.getProperty(ActorPropertyType.Speed);
-            let curPos: Laya.Point = new Laya.Point(this._actor.disObjCtrl.disObj.x, this._actor.disObjCtrl.disObj.y);
-            let distance: number = Tools.distancePoint(this._targetPos, curPos);
-            let duration: number = distance/speed * 1000;
-            // 进行位移
-            if(this._tween)
-                this._tween.clear();
-            this._tween = Laya.Tween.to(this._actor.disObjCtrl.disObj, {x: this._targetPos.x, y: this._targetPos.y}, duration, null, Laya.Handler.create(this, this.onMoveCmp));
-            this._actor.disObjCtrl.changeAngle(this._targetPos);
+            this.tweenMove();
         }
         
     }
-    private onMoveCmp(): void {
-        this._actor.changeState(ActorState.Idle);
-    }
 
-    public onLeave(newState: string) {
-        super.onLeave(newState);
-        this._targetPos = null;
+    private _step: number = 0;
+    private tweenMove(): void {
+        if(this._step < this._moveParam.path.length - 1) {
+            let begin: Laya.Point = NavManager.I.gridToScenePos(this._moveParam.path[this._step].x, this._moveParam.path[this._step].y) ;
+            let end: Laya.Point = NavManager.I.gridToScenePos(this._moveParam.path[this._step + 1].x, this._moveParam.path[this._step + 1].y)
+            let speed: number = this._actor.actorPropertyManager.getProperty(ActorPropertyType.Speed);
+            let distance: number = Tools.distancePoint(begin, end);
+            let duration: number = distance/speed * 1000;
+            this._actor.disObjCtrl.changeAngle(end);
+            // 进行位移
+            if(!this._tween) {
+                this._tween = Laya.Tween.to(this._actor.disObjCtrl.disObj, {x: end.x, y: end.y}, duration, Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
+            } else {
+                this._tween.to(this._actor.disObjCtrl.disObj, {x: end.x, y: end.y}, duration, Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
+            }
+            this._step ++;
+        } else {
+            // 结束移动
+            this.reset();
+            this._actor.changeState(ActorState.Idle);
+        }
+    }
+    private reset(): void {
+        this._step = 0;
+        this._moveParam = null;
         if(this._tween)
             this._tween.clear();
         this._tween = null;
+    }
+
+    public onLeave(newState: string) {
+        this.reset();
     }
 }

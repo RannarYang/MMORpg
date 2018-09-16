@@ -2,8 +2,8 @@
  * @Author: RannarYang
  * @Describe: 场景管理器
  * @Date: 2018-09-09 21:21:48 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-09-12 19:38:34
+ * @Last Modified by: RannarYang
+ * @Last Modified time: 2018-09-16 16:52:36
  */
 
 class SceneManager{
@@ -11,6 +11,8 @@ class SceneManager{
     private _layer_map: Laya.Sprite;
     private _layer_actor: Laya.Sprite;
     private _layer_effect: Laya.Sprite;
+    /**调试层 */
+    private _layer_debug: Laya.Sprite;
     
     private _layerDic: ObjDictionary;
 
@@ -36,15 +38,18 @@ class SceneManager{
         this._layer_map = new Laya.Sprite();
         this._layer_actor = new Laya.Sprite();
         this._layer_effect = new Laya.Sprite();
+        this._layer_debug = new Laya.Sprite();
 
         this._layerDic = new ObjDictionary();
         this._layerDic.add(LayerEnum.MapLayer, this._layer_map);
         this._layerDic.add(LayerEnum.ActorLayer, this._layer_actor);
         this._layerDic.add(LayerEnum.EffectLayer, this._layer_effect);
+        this._layerDic.add(LayerEnum.DebugLayer, this._layer_debug);
 
         this._scene.addChild(this._layer_map);
         this._scene.addChild(this._layer_actor);
         this._scene.addChild(this._layer_effect);
+        this._scene.addChild(this._layer_debug);
 
         Laya.stage.addChild(this._scene);
 

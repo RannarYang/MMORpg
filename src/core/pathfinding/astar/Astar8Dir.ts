@@ -12,7 +12,7 @@ class Astar8Dir {
 	private _start: AStarNode;
 	public lastPathLength: number = 0;
 
-	public Astar8Dir(nodeGrid :NodeGrid, list:IList) {
+	public constructor(nodeGrid :NodeGrid, list:IList) {
 		this._nodeGrid = nodeGrid;
 		this.openedNodeList = list;
 	}
