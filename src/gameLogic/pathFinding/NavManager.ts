@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:00:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 22:13:33
+ * @Last Modified time: 2018-09-16 22:36:05
  */
 
 class NavManager{
@@ -51,8 +51,9 @@ class NavManager{
     public findPath(startX: number, startY: number, endX: number, endY: number): Laya.Point[] {
         let path: Laya.Point[] = [];
         if(this._astar && this._nodeGrid) {
-            let res: any[] = this._astar.findPath(startX, startY, endX, endY);
-            res.reverse();
+            // let res: any[] = this._astar.findPath(startX, startY, endX, endY);
+            // res.reverse();
+            let res: any[] = this._astar.findFloydPath(startX, startY, endX, endY);
             let tempNode: AStarNode;
             for(let i: number = 0; i < res.length; i++) {
                 tempNode = this._nodeGrid.nodeList[res[i]];
