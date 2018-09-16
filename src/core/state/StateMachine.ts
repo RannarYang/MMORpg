@@ -3,7 +3,7 @@
  * @Describe: 状态机
  * @Date: 2018-09-13 23:46:27 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-14 23:10:30
+ * @Last Modified time: 2018-09-16 20:47:55
  */
 
 class StateMachine {
@@ -21,7 +21,7 @@ class StateMachine {
     public set owner(value: Object) {
         this._owner = value;
     }
-    constructor(owner: Actor){
+    constructor(owner: Object){
         this._owner = owner; 
         this._stateDic = new ObjDictionary();
     }

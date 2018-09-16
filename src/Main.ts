@@ -2,37 +2,37 @@
 class Main {
     constructor() {
         // TODO: 加载json文件(暂时放在这里)
-        Laya3D.init(GameConfig.DeviceW, GameConfig.DeviceH, true);
-        Laya.loader.load("res/config/config.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
-        // this.init3d();
-        
-    }
-    private onLoaded() {
-        let json:JSON=Laya.loader.getRes("res/config/config.json");
-        ConfigTabel.initConfig(json);
         this.init3d();
+        this.initGameState();
     }
     private init3d() {
-
+        Laya3D.init(GameConfig.DeviceW, GameConfig.DeviceH, true);
         Laya.stage.scaleMode = Laya.Stage.SCALE_FULL;
         Laya.Stat.show();
 
         SceneManager.I.init();
         InputManager.I.init();
         SceneManager.I.addToLayer(WorldMap.I.container, LayerEnum.MapLayer);
-        SceneManager.I.addToLayer(Player.I.disObjCtrl.disObj, LayerEnum.ActorLayer, 1024, 1024);
-        SceneManager.I.camera2d.focus(Player.I.disObjCtrl.disObj);
-
-        Player.I.actorPropertyManager.changeProperty(ActorPropertyType.HP, -200);
-
-        var grid: GridView = new GridView();
-        SceneManager.I.addToLayer(grid, LayerEnum.DebugLayer)
-
+        
         Laya.timer.frameLoop(1, this, this.update);
+        
+    }
+    private _stateMachine: StateMachine;
+    private initGameState(): void {
+        this._stateMachine = new StateMachine(this);
+        this._stateMachine.registerState(GameState.Loading, new GameLoadingState(this));
+        this._stateMachine.registerState(GameState.Main, new GameMainState(this));
+        this._stateMachine.changeState(GameState.Loading);
+    }
+    public changeState(key: string, obj: Object = null) {
+        if(this._stateMachine) {
+            this._stateMachine.changeState(key, obj);
+        }
     }
     private update(): void {
-        SceneManager.I.update();
-        Player.I.update();
+        if(this._stateMachine){
+            this._stateMachine.update();
+        }
     }
 }
 new Main();

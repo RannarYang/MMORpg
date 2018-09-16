@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:00:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 17:37:28
+ * @Last Modified time: 2018-09-16 21:10:19
  */
 
 class NavManager{
@@ -13,18 +13,40 @@ class NavManager{
     }
     
     constructor(){
-        this._gridVO = new GridVO();
+        
+        
+    }
+    private _jsonUrl: string = "res/map_001/map_001.json";
+    public get jsonUrl(): string {
+        return this._jsonUrl;
+    }
+    public init(): void {
+        this.onJsonLoaded();
+    }
+    private onJsonLoaded(): void {
+        let json = Laya.loader.getRes(this._jsonUrl);
+        let gridVO = this._gridVO = new GridVO();
+        gridVO._rowNumber = json.row;
+        gridVO._colNumber = json.col;
+        gridVO._cellSize = json.cellW;
+        gridVO._gridW = json.gridW;
+        gridVO._gridH = json.gridH;
+
+        let data: any[] = json.data;
         this._nodeGrid = new NodeGrid(this._gridVO._colNumber, this.gridVO._rowNumber);
         let index: number = 0;
         for(let i: number = 0; i < this._gridVO._rowNumber; i++) {
             for(let j: number = 0; j < this._gridVO._colNumber; j++) {
-                this._nodeGrid.nodeList.push(new AStarNode(index++, j, i, 1));
+                this._nodeGrid.nodeList.push(new AStarNode(index++, j, i, data[j][i]));
             }
         }
         this._astar = new Astar8Dir(this._nodeGrid, new BinaryHeaps())
-        
+
     }
     private _nodeGrid: NodeGrid;
+    public get nodeGrid(): NodeGrid {
+        return this._nodeGrid;
+    }
     private _astar: Astar8Dir;    
     public findPath(startX: number, startY: number, endX: number, endY: number): Laya.Point[] {
         let path: Laya.Point[] = [];
