@@ -1,11 +1,13 @@
 /*
-* name;
-*/
+ * @Author: RannarYang
+ * @Describe: 
+ * @Date: 2018-09-17 14:21:58 
+ * @Last Modified by:   RannarYang 
+ * @Last Modified time: 2018-09-17 14:21:58 
+ */
+
 class ObjDictionary{
     private _strongType;
-    /**
-     *
-     */
     constructor(strongType = null) {
         this._strongType = strongType;
         this._length = 0;

@@ -3,7 +3,7 @@
  * @Describe: 角色管理器
  * @Date: 2018-09-17 13:23:41 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 13:57:05
+ * @Last Modified time: 2018-09-17 14:29:10
  */
 
 class ActorManager{
@@ -16,8 +16,9 @@ class ActorManager{
         this._container = new ObjDictionary();
     }
 
-    public create(templateID: number, type: number, camp: number, actorID: number, actorParam: ActorParam): Actor {
+    public create(templateID: number, type: number, camp: number, actorParam: ActorParam, actorID: number = undefined): Actor {
         let actor: Actor = null;
+        actorID = actorID ? actorID : IdGenerator.I.getID(IDType.Actor);
         switch(type){
             case ActorType.Player:
                 actor = new Player(templateID, type, camp, actorID);

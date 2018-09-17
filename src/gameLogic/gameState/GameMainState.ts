@@ -3,7 +3,7 @@
  * @Describe: 游戏主城状态
  * @Date: 2018-09-16 20:41:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 13:55:29
+ * @Last Modified time: 2018-09-17 14:18:57
  */
 
 class GameMainState extends State{
@@ -21,7 +21,7 @@ class GameMainState extends State{
 
         let param: ActorParam = new ActorParam();
         param.pos = new Laya.Point(50, 20);
-        let player = ActorManager.I.create(1000, ActorType.Player, ActorCamp.Player, 9999, param) as Player;
+        let player = ActorManager.I.create(1000, ActorType.Player, ActorCamp.Player, param) as Player;
     }
     public onUpdate(): void {
         SceneManager.I.update();
