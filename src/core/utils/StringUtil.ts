@@ -482,6 +482,7 @@ module Utils {
 		}
 		
 		public static splitStrToIntArr(str: string, splitStr="+"): number[] {
+			str = str + '';
 			let res = [];
 			let arr = str.split(splitStr);
 			for(let i = 0, len = arr.length; i < len; i++) {
@@ -492,6 +493,7 @@ module Utils {
 
 		public static isNullOrEmpty(str: string): boolean {
 			if(str != null) {
+				str = str + "";
 				str = this.trim(str);
 				if(str.length > 0) {
 					return false;

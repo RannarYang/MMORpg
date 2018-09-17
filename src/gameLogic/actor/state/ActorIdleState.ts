@@ -11,8 +11,9 @@ class ActorIdleState extends ActorBaseState{
         super(owner);
     }
     public onEnter(obj: Object = null): void {
-        if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
-            this._actor.disObjCtrl.aniController.playAniByState(ActorState.Idle);
-        }
+        super.onEnter(obj);
+    }
+    public getStateKey(): string {
+        return ActorState.Idle;
     }
 }

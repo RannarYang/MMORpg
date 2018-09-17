@@ -7,20 +7,32 @@
  */
 
 class ActorSkillState extends ActorBaseState{
+    protected _skill: Skill;
     constructor(owner: Object){
         super(owner);
     }
     public onEnter(obj: Object = null): void {
-        if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
-            // this._actor.disObjCtrl.aniController.playAni(880, 900, 890, false, Laya.Handler.create(this, this.keyFrameHandler), Laya.Handler.create(this, this.onAniFinish));
+        let skill = this._skill = obj as Skill;
+        if(!skill) {
+            console.warn("攻击状态 技能参数为空");
+            this._actor.changeState(ActorState.Idle);
+            return;
+        }
+        this._skill.onEnter();
+    }
+    public onUpdate(): void {
+        super.onUpdate();
+        if(this._skill) {
+            this._skill.onUpdate();
         }
     }
-
-    public keyFrameHandler(): void {
-        console.log("key frame triggered");
+    public onLeave(): void {
+        if(this._skill) {
+            this._skill.stop();
+            this._skill = null;
+        }
     }
-
-    public onAniFinish(): void {
-        this._actor.changeState(ActorState.Idle);
+    public getStateKey(): string {
+        return ActorState.Skill;
     }
 }

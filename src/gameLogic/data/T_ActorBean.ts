@@ -1,5 +1,5 @@
 class T_ActorBean {
-    public static ClassName = "T_ActorBean";
+    public static ClassName = "T_ActorBean"
     /** 编号 */
     public id: number; 
     /** 名称 */
@@ -18,4 +18,6 @@ class T_ActorBean {
     public fileAni: string; 
     /** mesh3d的名字 */
     public meshName: string; 
+    /** 角色拥有的属性id */
+    public skillIds: string; 
 }

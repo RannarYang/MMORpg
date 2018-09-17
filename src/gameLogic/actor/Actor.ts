@@ -23,13 +23,18 @@ class Actor extends ActorBase{
     public get stateMachine(): StateMachine {
         return this._stateMachine;
     }
-
+    /**技能管理器 */
+    protected _skillManager: SkillManager;
+    public get skillManager(): SkillManager {
+        return this._skillManager;
+    }
     public _actionDic: ObjDictionary;
 
     constructor(templateID: number, actorType: number, actorCamp: number){
         super(templateID, actorType, actorCamp);
         this.registerStates();
         this.registerActions();
+        this.registerSkills();
         this.initProperty();
         this._disObjCtrl = new DisplayObjectController(this);
     }
@@ -38,6 +43,16 @@ class Actor extends ActorBase{
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.HP, this._actorBean.hp);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Atk, this._actorBean.atk);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Speed, this._actorBean.speed);
+    }
+    public useSkill(skillId: number): boolean {
+        let skill: Skill = this._skillManager.getSkill(skillId);
+        if(skill) {
+            this.changeState(ActorState.Skill, skill);
+            return true;
+        } else {
+            console.warn("使用了未注册的技能：", skillId);
+            return false;
+        }
     }
     protected registerActions(): void {
         let actionDic = this._actionDic = new ObjDictionary();
@@ -51,6 +66,18 @@ class Actor extends ActorBase{
     protected registerStates(): void {
         this._stateMachine = new StateMachine(this);
         
+    }
+    protected registerSkills(): void {
+        this._skillManager = new SkillManager(this);
+        if(!Utils.StringUtil.isNullOrEmpty(this._actorBean.skillIds)) {
+            let arr = Utils.StringUtil.splitStrToIntArr(this._actorBean.skillIds, "+");
+            let skill: Skill;
+            for(let i = 0, len = arr.length; i < len; i++) {
+                skill = new Skill(arr[i], this);
+                this._skillManager.add(skill);
+            }
+            
+        }
     }
     public changeState(stateKey: string, obj: Object = null): void {
         if(this._stateMachine) {

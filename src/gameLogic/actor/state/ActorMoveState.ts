@@ -18,10 +18,7 @@ class ActorMoveState extends ActorBaseState{
             console.warn("ActorMoveState obj param is null");
             this._actor.changeState(ActorState.Idle);
         } else {
-            if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
-                this._actor.disObjCtrl.aniController.playAniByState(ActorState.Move);
-            }
-            console.log(this._moveParam)
+            super.onEnter(obj);
             this.tweenMove();
         }
         
@@ -48,6 +45,9 @@ class ActorMoveState extends ActorBaseState{
             // 结束移动
             this._actor.changeState(ActorState.Idle);
         }
+    }
+    public getStateKey(): string {
+        return ActorState.Move;
     }
     private reset(): void {
         this._step = 0;

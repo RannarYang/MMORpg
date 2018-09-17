@@ -22,7 +22,7 @@ class InputManager{
                     Player.I.changeState(ActorState.Move);
                     break;
                 case 87: // W
-                    Player.I.changeState(ActorState.Skill);
+                    Player.I.useSkill(1000);
                     break;
             }
         }

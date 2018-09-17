@@ -13,10 +13,9 @@ class ActorBaseState extends State{
         this._actor = owner as Actor;
     }
     public onEnter(obj: Object = null): void {
-        //TODO:播动画
         if(this._actor && this._actor.disObjCtrl.isObj3dLoaded) {
-            // this._actor.disObjCtrl.aniController.playAni()
-        }
+                this._actor.disObjCtrl.aniController.playAniByState(this.getStateKey());
+            }
     }
     public onLeave(newState: string): void {
 
