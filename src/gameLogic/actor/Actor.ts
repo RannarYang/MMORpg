@@ -92,6 +92,9 @@ class Actor extends ActorBase{
     //         this._disObjCtrl.moveTo(pos);
     //     }
     // }
+    public isDead(): boolean {
+        return this._actorPropertyManager.getProperty(ActorPropertyType.HP) < 0;
+    }
     public update(): void {
         if(this._disObjCtrl) {
             this._disObjCtrl.update();

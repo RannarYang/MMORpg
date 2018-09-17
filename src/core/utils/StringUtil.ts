@@ -490,6 +490,15 @@ module Utils {
 			}
 			return res;
 		}
+		public static splitStrToNumberArr(str: string, splitStr="+"): number[] {
+			str = str + '';
+			let res = [];
+			let arr = str.split(splitStr);
+			for(let i = 0, len = arr.length; i < len; i++) {
+				res[i] = parseFloat(arr[i])
+			}
+			return res;
+		}
 
 		public static isNullOrEmpty(str: string): boolean {
 			if(str != null) {

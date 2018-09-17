@@ -9,6 +9,18 @@ class Tools{
     public static distancePoint(src: Laya.Point, des: Laya.Point): number{
         return Math.sqrt((des.x - src.x) * (des.x - src.x) + (des.y -src.y) * (des.y -src.y));
     }
+    public static distancePointSquare(src: Laya.Point, des: Laya.Point): number{
+        return (des.x - src.x) * (des.x - src.x) + (des.y -src.y) * (des.y -src.y);
+    }
+    public static isInCircle(pos: Laya.Point, center: Laya.Point, radius: number): boolean {
+        return this.distancePointSquare(pos, center) <= radius * radius;
+    }
+    public static isInSector(pos: Laya.Point, center: Laya.Point, dir: Laya.Point, radius: number, degree: number): boolean {
+        if(!this.isInCircle(pos, center, radius)) return false;
+        let angle1: number = this.R2A(Math.atan2(dir.x, dir.y));
+        let angle2: number = this.R2A(Math.atan2(pos.x - center.x, pos.y - center.y));
+        return Math.abs(angle1 - angle2) <= degree * 0.5;
+    }
     public static R2A(r: number): number {
         return r * 180 / Math.PI;
     }

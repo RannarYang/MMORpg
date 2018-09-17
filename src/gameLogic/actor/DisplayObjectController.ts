@@ -63,6 +63,14 @@ class DisplayObjectController{
             }
         })
     }
+
+    public screenPos2d(): Laya.Point {
+        return new Laya.Point(this._disObj.x, this._disObj.y);
+    }
+    public dir2d(): Laya.Point {
+        return null;
+    }
+
     public update(): void {
         if(this._aniController) {
             this._aniController.update();
