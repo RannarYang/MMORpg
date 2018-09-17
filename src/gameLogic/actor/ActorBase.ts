@@ -3,7 +3,7 @@
  * @Describe: 角色基类
  * @Date: 2018-09-12 23:11:03 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 14:14:42
+ * @Last Modified time: 2018-09-17 14:01:16
  */
 
 class ActorBase {
@@ -23,11 +23,26 @@ class ActorBase {
     public get actorBean(): T_ActorBean {
         return this._actorBean;
     }
-    constructor(templateID: number, actorType: number, actorCamp: number){
+
+    protected _actorID: number;
+    public get actorID(): number {
+        return this._actorID;
+    }
+    
+    protected _actorParam: ActorParam;
+    public get actorParam(): ActorParam {
+        return this._actorParam;
+    }
+    constructor(templateID: number, actorType: number, actorCamp: number, actorID: number){
         this._templateID = templateID;
         this._actorType = actorType;
         this._actorCamp = actorCamp;
+        this._actorID = actorID;
         this._actorBean = BeanFactory.getActorById(templateID);
+    }
+
+    public init(actorParam: ActorParam): void{
+        this._actorParam = actorParam;
     }
 
     public isActorType(type: number): boolean {

@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 18:10:11
+ * @Last Modified time: 2018-09-17 14:05:39
  */
 
 class InputManager{
@@ -19,10 +19,10 @@ class InputManager{
         if(e){
             switch(e["keyCode"]) {
                 case 81: // Q
-                    Player.I.changeState(ActorState.Move);
+                    ActorManager.player.changeState(ActorState.Move);
                     break;
                 case 87: // W
-                    Player.I.useSkill(1000);
+                    ActorManager.player.useSkill(1000);
                     break;
             }
         }
@@ -31,15 +31,15 @@ class InputManager{
         // 检查鼠标点击的地方是否可以行走
         
         let targetPoint: Laya.Point = SceneManager.I.getMousePos();
-        let startX: number = Player.I.disObjCtrl.disObj.x;
-        let startY: number = Player.I.disObjCtrl.disObj.y;
+        let startX: number = ActorManager.player.disObjCtrl.disObj.x;
+        let startY: number = ActorManager.player.disObjCtrl.disObj.y;
 
         let path: Laya.Point[] = NavManager.I.findPathByScenePos(startX, startY, targetPoint.x, targetPoint.y);
         DebugTools.drawPath(path);
 
         let moveParam: ActorMoveParam = new ActorMoveParam();
         moveParam.path = path;
-        Player.I.changeState(ActorState.Move, moveParam);
+        ActorManager.player.changeState(ActorState.Move, moveParam);
     }
     /**单例 */
     private static instance: InputManager;

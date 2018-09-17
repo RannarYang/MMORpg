@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 22:14:51
+ * @Last Modified time: 2018-09-17 14:04:15
  */
 
 class DisplayObjectController{
@@ -39,6 +39,13 @@ class DisplayObjectController{
         spr.x = -48;
         spr.y = -48;
         this._disObj.visible = false;
+
+        let actorParam: ActorParam = this._owner.actorParam;
+        let pos: Laya.Point = NavManager.I.gridToScenePos(actorParam.pos.x, actorParam.pos.y);
+        SceneManager.I.addToLayer(this._disObj, LayerEnum.ActorLayer, pos.x, pos.y);
+        if(this._owner.isActorType(ActorType.Player)) {
+            SceneManager.I.camera2d.focus(this._disObj);
+        }
     }
     private create3dObj(): void {
         let _disObj3d = this._disObj3d = Laya.Sprite3D.load(this._owner.actorBean.file3d);

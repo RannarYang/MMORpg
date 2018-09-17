@@ -25,6 +25,8 @@ class Skill{
     }
     protected keyFrameHandler(): void {
         // TODO: 触发伤害
+        // 取得当前技能攻击范围之内的所有怪物
+        // 是否在攻击范围内
         console.log("skill: " + this._templateID + "key frame triggered")
     }
     protected antionFinishHandler(): void {

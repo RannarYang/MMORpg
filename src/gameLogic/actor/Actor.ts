@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 11:53:45
+ * @Last Modified time: 2018-09-17 13:59:02
  */
 
 class Actor extends ActorBase{
@@ -30,8 +30,11 @@ class Actor extends ActorBase{
     }
     public _actionDic: ObjDictionary;
 
-    constructor(templateID: number, actorType: number, actorCamp: number){
-        super(templateID, actorType, actorCamp);
+    constructor(templateID: number, actorType: number, actorCamp: number, actorID: number){
+        super(templateID, actorType, actorCamp, actorID);
+    }
+    public init(actorParam: ActorParam): void {
+        super.init(actorParam);
         this.registerStates();
         this.registerActions();
         this.registerSkills();
