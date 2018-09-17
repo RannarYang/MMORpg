@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 14:04:15
+ * @Last Modified time: 2018-09-17 22:33:14
  */
 
 class DisplayObjectController{
@@ -22,6 +22,15 @@ class DisplayObjectController{
         return this._aniController;
     }
 
+    public onDestroy(): void {
+        if(this._disObj) {
+            this._disObj.removeSelf();
+        }
+        if(this._disObj3d) {
+            this._disObj3d.removeSelf();
+        }
+    }
+
     protected _isObj3dLoaded: boolean = false;
     public get isObj3dLoaded(): boolean {
         return this._isObj3dLoaded;
@@ -34,7 +43,7 @@ class DisplayObjectController{
 
     private create2dObj(): void {
         this._disObj = new Laya.Sprite();
-        let spr: Laya.Sprite = Laya.Sprite.fromImage(this._owner.actorBean.file2d);
+        let spr: Laya.Sprite = Laya.Sprite.fromImage(GameConfig.ActorPath + this._owner.actorBean.file2d);
         this._disObj.addChild(spr);   
         spr.x = -48;
         spr.y = -48;
@@ -48,7 +57,7 @@ class DisplayObjectController{
         }
     }
     private create3dObj(): void {
-        let _disObj3d = this._disObj3d = Laya.Sprite3D.load(this._owner.actorBean.file3d);
+        let _disObj3d = this._disObj3d = Laya.Sprite3D.load(GameConfig.ModelPath + this._owner.actorBean.file3d);
         SceneManager.I.addToContainer3d(_disObj3d);
         _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
             this._isObj3dLoaded = true;
@@ -57,18 +66,32 @@ class DisplayObjectController{
             let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
             if(ms3d) {
                 let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
-                skinAni.templet = Laya.AnimationTemplet.load(this._owner.actorBean.fileAni);
+                skinAni.templet = Laya.AnimationTemplet.load(GameConfig.ModelPath + this._owner.actorBean.fileAni);
                 this._aniController = new AnimationController(skinAni, this._owner._actionDic);
                 this._owner.changeState(ActorState.Idle);
+
+                // !!!!!!!!!!修正主角的朝向
+                if(this._owner.isActorType(ActorType.Player)) {
+                    this.changeAngle(new Laya.Point(this._disObj.x + 100, this._disObj.y))
+                }
             }
         })
     }
 
-    public screenPos2d(): Laya.Point {
+    public get screenPos2d(): Laya.Point {
         return new Laya.Point(this._disObj.x, this._disObj.y);
     }
-    public dir2d(): Laya.Point {
-        return null;
+    protected _dir2d: Laya.Point = new Laya.Point(1, 0);
+    public get dir2d(): Laya.Point {
+        return this._dir2d;
+    }
+
+    public getPos3d(isLocal: boolean): Laya.Vector3 {
+        if(isLocal) {
+            return this._disObj3d.transform.localPosition.clone();
+        } else {
+            return this._disObj3d.transform.position.clone();
+        }
     }
 
     public update(): void {
@@ -94,6 +117,12 @@ class DisplayObjectController{
         return pos;
     }
     public changeAngle(scenePos: Laya.Point) {
+        // 记录朝向
+        if(this._disObj) {
+            this._dir2d.x = scenePos.x - this._disObj.x;
+            this._dir2d.y = scenePos.y - this._disObj.y;
+        }
+
         let globalPos: Laya.Point = SceneManager.I.scene.localToGlobal(scenePos, true);
         let src: Laya.Vector3 = new Laya.Vector3(globalPos.x, globalPos.y);
         let out: Laya.Vector3 = new Laya.Vector3();

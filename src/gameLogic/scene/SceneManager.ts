@@ -3,7 +3,7 @@
  * @Describe: 场景管理器
  * @Date: 2018-09-09 21:21:48 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 16:52:36
+ * @Last Modified time: 2018-09-17 21:59:39
  */
 
 class SceneManager{
@@ -72,8 +72,12 @@ class SceneManager{
         this._scene3d.addChild(container3d);
     }
 
+    public getLayer(layer: string): Laya.Sprite {
+        return this._layerDic.get(layer) as Laya.Sprite;
+    }
+
     public addToLayer(spr: Laya.Sprite, layer: string, posX: number = 0, posY: number = 0): void {
-        let layerSpr: Laya.Sprite = (<Laya.Sprite>this._layerDic.get(layer));
+        let layerSpr: Laya.Sprite = this._layerDic.get(layer) as Laya.Sprite;
         if(layerSpr) {
             layerSpr.addChild(spr);
             spr.x = posX;
@@ -83,8 +87,8 @@ class SceneManager{
         }
     }
 
-    public addToContainer3d(obj) {
-        this._container3d.addChild(obj);
+    public addToContainer3d(node: Laya.Node) {
+        this._container3d.addChild(node);
     }
 
     public update(): void {

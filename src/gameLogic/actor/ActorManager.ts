@@ -3,7 +3,7 @@
  * @Describe: 角色管理器
  * @Date: 2018-09-17 13:23:41 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 14:29:10
+ * @Last Modified time: 2018-09-17 22:34:00
  */
 
 class ActorManager{
@@ -28,6 +28,7 @@ class ActorManager{
                 // actor 
                 break;
             case ActorType.Monster:
+                actor = new Monster(templateID, type, camp, actorID);
                 break;
         }
         actor.init(actorParam);
@@ -48,6 +49,7 @@ class ActorManager{
     }
     public remove(actor: Actor): void{
         if(actor) {
+            actor.onDestroy();
             this._container.remove(actor.actorID);
         } else {
             console.warn("can not remove a null actor");

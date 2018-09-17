@@ -3,13 +3,12 @@
  * @Describe: 
  * @Date: 2018-09-17 11:08:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 11:10:03
+ * @Last Modified time: 2018-09-17 22:18:14
  */
 
 class RangeParam{
-    public static Circle = 0;
-    public static Sector = 1;
-    public static Rectangle = 2;
+    public static Circle = 1;
+    public static Sector = 2;
 
     private _type: number;
     public get type(): number {
@@ -31,7 +30,7 @@ class RangeParam{
         if(this._type == RangeParam.Circle) {
             this._radius = parseInt(strParam);
         } else if(this._type == RangeParam.Sector) {
-            let arr: number[] = Utils.StringUtil.splitStrToNumberArr(strParam);
+            let arr: number[] = Utils.StringUtil.splitStrToNumberArr(strParam, '_');
             this._radius = arr[0];
             this._angle = arr[1];
         } else {

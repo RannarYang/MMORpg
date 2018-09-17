@@ -3,7 +3,7 @@
  * @Describe: 技能类
  * @Date: 2018-09-17 10:31:17 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 11:26:21
+ * @Last Modified time: 2018-09-17 22:41:24
  */
 
 class Skill{
@@ -13,6 +13,9 @@ class Skill{
     }
     protected _owner: Actor;
     protected _skillBean: T_SkillBean;
+    public get skillBean(): T_SkillBean {
+        return this._skillBean;
+    }
     protected _rangeParam: RangeParam;
     constructor(templateID: number, owner: Actor){
         this._owner = owner;
@@ -29,31 +32,12 @@ class Skill{
         // TODO: 触发伤害
         // 取得当前技能攻击范围之内的所有怪物
         // 是否在攻击范围内
-        let res: Actor[] = [];
-        let cont: ObjDictionary = ActorManager.I.container;
-        let actor: Actor;
-        for(let key in cont.container) {
-            actor = cont.container[key];
-            if(actor.isDead()){
-                continue;
-            }
-            if(!actor.isCampOf(this._owner.actorCamp)) {
-                continue;
-            }
-            let flag: boolean = false;
-            if(this._rangeParam.type == RangeParam.Circle) {
-                flag = Tools.isInCircle(actor.disObjCtrl.screenPos2d(), this._owner.disObjCtrl.screenPos2d(), this._rangeParam.radius);
-            } else if(this._rangeParam.type == RangeParam.Sector) {
-                flag = Tools.isInSector(actor.disObjCtrl.screenPos2d(), this._owner.disObjCtrl.screenPos2d(), this._owner.disObjCtrl.dir2d(), this._rangeParam.radius, this._rangeParam.angle)
-            } else {
-                console.warn("不能识别的攻击范围")
-            }
-            if(flag) {
-                res.push(actor);
-            }
-        }
-
         
+        let res = AttackUtils.getDefendersInRange(this._owner, this._rangeParam)
+        console.log("res length", res.length);
+        for(let i = 0, len = res.length; i < len; i++) {
+            res[i].onAttacked(this);
+        }
         console.log("skill: " + this._templateID + "key frame triggered")
     }
     protected antionFinishHandler(): void {
@@ -71,6 +55,18 @@ class Skill{
         this.playAni();
         this.playSound();
         this.playEffecct();
+        this.drawSkillArea();
+    }
+    public drawSkillArea(): void {
+        if(this._rangeParam.type == RangeParam.Circle) {
+            DebugTools.drawCircle(this._owner.disObjCtrl.screenPos2d, this._rangeParam.radius);
+        } else if(this._rangeParam.type == RangeParam.Sector) {
+            let dir: Laya.Point = this._owner.disObjCtrl.dir2d;
+            let angle: number = Tools.R2A(Math.atan2(dir.y, dir.x));
+            let startAngle: number = angle - this._rangeParam.angle * 0.5;
+            let endAngle: number = angle + this._rangeParam.angle * 0.5;
+            DebugTools.drawPie(this._owner.disObjCtrl.screenPos2d, this._rangeParam.radius, startAngle, endAngle);
+        }
     }
     public onUpdate(): void {
 

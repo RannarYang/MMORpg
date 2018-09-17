@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 13:59:02
+ * @Last Modified time: 2018-09-17 22:33:43
  */
 
 class Actor extends ActorBase{
@@ -87,13 +87,19 @@ class Actor extends ActorBase{
             this._stateMachine.changeState(stateKey, obj);
         }
     }
-    // public moveTo(pos: Laya.Point): void {
-    //     if(this._disObjCtrl){
-    //         this._disObjCtrl.moveTo(pos);
-    //     }
-    // }
     public isDead(): boolean {
         return this._actorPropertyManager.getProperty(ActorPropertyType.HP) < 0;
+    }
+    public onAttacked(skill: Skill): void {
+        console.log("i am attacked", this._actorID);
+        if(!this.isDead()) {
+            AttackEffectUtils.I.doEffect(skill, this);
+        }
+    }
+    public onDestroy(): void {
+        if(this._disObjCtrl) {
+            this._disObjCtrl.onDestroy();
+        }
     }
     public update(): void {
         if(this._disObjCtrl) {

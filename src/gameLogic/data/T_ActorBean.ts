@@ -1,5 +1,5 @@
 class T_ActorBean {
-    public static ClassName = "T_ActorBean"
+    public static ClassName = "T_ActorBean";
     /** 编号 */
     public id: number; 
     /** 名称 */
@@ -10,6 +10,10 @@ class T_ActorBean {
     public atk: number; 
     /** 速度 */
     public speed: number; 
+    /** 飞行速度 */
+    public flyspeed: number; 
+    /** 人物头像 */
+    public titleImg: string; 
     /** 2d图路径 */
     public file2d: string; 
     /** 3d模型路径 */
@@ -20,4 +24,10 @@ class T_ActorBean {
     public meshName: string; 
     /** 角色拥有的属性id */
     public skillIds: string; 
+    /** 伤害数字偏移 */
+    public yOffset: number; 
+    /** 伤害数字偏移 */
+    public xOffset: number; 
+    /**   */
+    public yOffsetEft: number; 
 }

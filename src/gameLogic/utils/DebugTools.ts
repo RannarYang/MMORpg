@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:27:00 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 21:10:11
+ * @Last Modified time: 2018-09-17 22:03:25
  */
 
 class DebugTools{
@@ -21,6 +21,16 @@ class DebugTools{
             this.markVec.push(spr);
         }
     }
+    public static drawCircle(center: Laya.Point, radius: number): void {
+        let spr: Laya.Sprite = SceneManager.I.getLayer(LayerEnum.DebugLayer);
+        spr.graphics.clear();
+        spr.graphics.drawCircle(center.x, center.y, radius, "0xcccccc");
+    }
+    public static drawPie(center: Laya.Point, radius: number, startAngle: number, endAngle: number){
+        let spr: Laya.Sprite = SceneManager.I.getLayer(LayerEnum.DebugLayer);
+        spr.graphics.clear();
+        spr.graphics.drawPie(center.x, center.y, radius, startAngle, endAngle, "0xcccccc");
+    }
     private static clearLastPath(): void {
         if(this.markVec) {
             for(let i = 0, len = this.markVec.length; i < len; i++) {
@@ -30,6 +40,7 @@ class DebugTools{
         }
         
     }
+
     constructor(){
 
     }
