@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:33:43
+ * @Last Modified time: 2018-09-19 00:34:46
  */
 
 class Actor extends ActorBase{
@@ -50,8 +50,15 @@ class Actor extends ActorBase{
     public useSkill(skillId: number): boolean {
         let skill: Skill = this._skillManager.getSkill(skillId);
         if(skill) {
-            this.changeState(ActorState.Skill, skill);
-            return true;
+            if(this._skillManager.isCoolDown(skillId)) {
+                this._skillManager.addCD(skillId);
+                this.changeState(ActorState.Skill, skill);
+                return true;
+            } else {
+                console.warn("使用的技能还在冷却中");
+                return false;
+            }
+            
         } else {
             console.warn("使用了未注册的技能：", skillId);
             return false;
