@@ -26,12 +26,11 @@ class AttackEffectUtils{
     private playEffect(): void {
         if(Utils.StringUtil.isNullOrEmpty(this._skill.skillBean.hitEffect)) return;
         let pos: Laya.Vector3 = this._defender.disObjCtrl.getPos3d(true);
-        let eft: Laya.Sprite3D = Laya.Sprite3D.load(GameConfig.EffectPath + this._skill.skillBean.hitEffect);
-        eft.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
-            SceneManager.I.addToContainer3d(eft);
-            eft.transform.localPosition = pos;
-        });
-
+        pos.y += 0.5;
+        let original: Laya.Sprite3D = Laya.Sprite3D.load(GameConfig.EffectPath + this._skill.skillBean.hitEffect);
+        let eft = Laya.Sprite3D.instantiate(original);
+        SceneManager.I.addToContainer3d(eft);
+        eft.transform.localPosition = pos;
     }
      /**单例 */
     private static instance: AttackEffectUtils;

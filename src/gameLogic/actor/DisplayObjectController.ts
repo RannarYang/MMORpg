@@ -57,25 +57,23 @@ class DisplayObjectController{
         }
     }
     private create3dObj(): void {
-        let _disObj3d = this._disObj3d = Laya.Sprite3D.load(GameConfig.ModelPath + this._owner.actorBean.file3d);
+        let original: Laya.Sprite3D = Laya.Sprite3D.load(GameConfig.ModelPath + this._owner.actorBean.file3d);
+        let _disObj3d = this._disObj3d = Laya.Sprite3D.instantiate(original);
         SceneManager.I.addToContainer3d(_disObj3d);
-        _disObj3d.once(Laya.Event.HIERARCHY_LOADED, this, ()=>{
-            this._isObj3dLoaded = true;
-            _disObj3d.transform.localScale = new Laya.Vector3(0.1, 0.1, 0.1);
+        this._isObj3dLoaded = true;
+        _disObj3d.transform.localScale = new Laya.Vector3(0.1, 0.1, 0.1);
 
-            let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
-            if(ms3d) {
-                let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
-                skinAni.templet = Laya.AnimationTemplet.load(GameConfig.ModelPath + this._owner.actorBean.fileAni);
-                this._aniController = new AnimationController(skinAni, this._owner._actionDic);
-                this._owner.changeState(ActorState.Idle);
+        let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
+        if(ms3d) {
+            let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
+            skinAni.templet = Laya.AnimationTemplet.load(GameConfig.ModelPath + this._owner.actorBean.fileAni);
+            this._aniController = new AnimationController(skinAni, this._owner._actionDic);
 
-                // !!!!!!!!!!修正主角的朝向
-                if(this._owner.isActorType(ActorType.Player)) {
-                    this.changeAngle(new Laya.Point(this._disObj.x + 100, this._disObj.y))
-                }
+            // !!!!!!!!!!修正主角的朝向
+            if(this._owner.isActorType(ActorType.Player)) {
+                this.changeAngle(new Laya.Point(this._disObj.x + 100, this._disObj.y))
             }
-        })
+        }
     }
 
     public get screenPos2d(): Laya.Point {

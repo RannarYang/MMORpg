@@ -14,8 +14,24 @@ class GameLoadingState extends State {
         // 加载寻路配置文件
         Laya.loader.load([NavManager.I.jsonUrl,"res/config/config.json"], Laya.Handler.create(this, this.onLoadedCmp), null, Laya.Loader.JSON);
     }
+
     private onLoadedCmp(): void {
         NavManager.I.init();
+
+        let json:JSON=Laya.loader.getRes("res/config/config.json");
+        ConfigTabel.initConfig(json);
+
+        this.preloadRes();
+    }
+    private preloadRes(): void {
+        let arr = [];
+        arr.push(GameConfig.EffectPath + "hit_red/hit_red.lh");
+        arr.push(GameConfig.ModelPath + "cike/cike.lh");
+        arr.push(GameConfig.ModelPath + "monster_001/laohu.lh")
+        Laya.loader.create(arr, Laya.Handler.create(this, this.onResLoadCmp));
+    }
+    
+    private onResLoadCmp() {
         let main: Main = this._owner as Main;
         main.changeState(GameState.Main);
     }

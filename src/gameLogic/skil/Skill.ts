@@ -55,7 +55,7 @@ class Skill{
         this.playAni();
         this.playSound();
         this.playEffecct();
-        this.drawSkillArea();
+        // this.drawSkillArea();
     }
     public drawSkillArea(): void {
         if(this._rangeParam.type == RangeParam.Circle) {

@@ -12,18 +12,19 @@ class GameMainState extends State{
     }
     public onEnter(obj: Object = null): void {
 
-        let json:JSON=Laya.loader.getRes("res/config/config.json");
-        ConfigTabel.initConfig(json);
+        
 
         let param: ActorParam = new ActorParam();
         param.pos = new Laya.Point(50, 20);
         let player = ActorManager.I.create(1000, ActorType.Player, ActorCamp.Player, param) as Player;
+        player.changeState(ActorState.Idle);
 
         // 创建老虎
         param = new ActorParam();
         param.pos = new Laya.Point(51, 21);
         let monster = ActorManager.I.create(3000, ActorType.Monster, ActorCamp.Enemy
     , param) as Player;
+        monster.changeState(ActorState.Idle);
     }
     public onUpdate(): void {
         SceneManager.I.update();
