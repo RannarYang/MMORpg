@@ -3,7 +3,7 @@
  * @Describe: 技能类
  * @Date: 2018-09-17 10:31:17 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:41:24
+ * @Last Modified time: 2018-09-19 01:03:45
  */
 
 class Skill{
@@ -41,9 +41,22 @@ class Skill{
         console.log("skill: " + this._templateID + "key frame triggered")
     }
     protected antionFinishHandler(): void {
-        // 
+        // 连招
         console.log("skill: " + this._templateID + "use complete");
-        this._owner.changeState(ActorState.Idle);
+        if(!this.useNextSkill()) {
+            this._owner.changeState(ActorState.Idle);   
+        }
+    }
+    protected useNextSkill(): boolean {
+        if(this._skillBean.isLinkSkill && this._skillBean.nextSkill > 0) {
+            let skill: Skill = this._owner.skillManager.getSkill(this._skillBean.nextSkill);
+            if(skill) {
+                this._owner.changeState(ActorState.Skill, skill);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
     protected playEffecct(): void {
 

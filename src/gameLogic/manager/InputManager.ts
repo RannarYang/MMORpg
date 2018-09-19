@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 14:05:39
+ * @Last Modified time: 2018-09-19 23:39:49
  */
 
 class InputManager{
@@ -22,7 +22,8 @@ class InputManager{
                     ActorManager.player.changeState(ActorState.Move);
                     break;
                 case 87: // W
-                    ActorManager.player.useSkill(1000);
+                    // ActorManager.player.useSkill(1000);
+                    MainUIWindow.I.useSkill(1000);
                     break;
             }
         }

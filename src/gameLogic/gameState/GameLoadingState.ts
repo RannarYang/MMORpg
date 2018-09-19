@@ -3,7 +3,7 @@
  * @Describe: 游戏加载状态
  * @Date: 2018-09-16 20:42:11 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 21:04:02
+ * @Last Modified time: 2018-09-19 23:04:59
  */
 
 class GameLoadingState extends State {
@@ -12,7 +12,12 @@ class GameLoadingState extends State {
     }
     public onEnter(obj: Object = null): void {
         // 加载寻路配置文件
-        Laya.loader.load([NavManager.I.jsonUrl,"res/config/config.json"], Laya.Handler.create(this, this.onLoadedCmp), null, Laya.Loader.JSON);
+        let arr = [];
+        arr.push({url: NavManager.I.jsonUrl, type:Laya.Loader.JSON});
+        arr.push({url: "res/config/config.json", type: Laya.Loader.JSON});
+        arr.push({url: "res/atlas/ui_main.atlas", type: Laya.Loader.ATLAS});
+
+        Laya.loader.load(arr, Laya.Handler.create(this, this.onLoadedCmp));
     }
 
     private onLoadedCmp(): void {

@@ -3,7 +3,7 @@
  * @Describe: 动画控制器
  * @Date: 2018-09-13 22:47:28 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-15 15:25:44
+ * @Last Modified time: 2018-09-19 00:54:13
  */
 
 class AnimationController{
@@ -54,8 +54,10 @@ class AnimationController{
         this._keyFrameHandler = null;
         this._curKeyFrameIndex = 0;
         if(this._onAnimCmp) {
-            this._onAnimCmp.run();
+            let tempHandler: Laya.Handler = this._onAnimCmp;
             this._onAnimCmp = null;
+            tempHandler.run();
+            tempHandler = null;
         }
     }
 

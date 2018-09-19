@@ -3,7 +3,7 @@
  * @Describe: 游戏主城状态
  * @Date: 2018-09-16 20:41:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 21:31:51
+ * @Last Modified time: 2018-09-19 23:39:39
  */
 
 class GameMainState extends State{
@@ -11,8 +11,6 @@ class GameMainState extends State{
         super(owner);
     }
     public onEnter(obj: Object = null): void {
-
-        
 
         let param: ActorParam = new ActorParam();
         param.pos = new Laya.Point(50, 20);
@@ -22,9 +20,10 @@ class GameMainState extends State{
         // 创建老虎
         param = new ActorParam();
         param.pos = new Laya.Point(51, 21);
-        let monster = ActorManager.I.create(3000, ActorType.Monster, ActorCamp.Enemy
-    , param) as Player;
+        let monster = ActorManager.I.create(3000, ActorType.Monster, ActorCamp.Enemy, param) as Player;
         monster.changeState(ActorState.Idle);
+
+        MainUIWindow.I.onOpen();
     }
     public onUpdate(): void {
         SceneManager.I.update();
