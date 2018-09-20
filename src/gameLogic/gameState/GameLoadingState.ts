@@ -17,6 +17,9 @@ class GameLoadingState extends State {
         arr.push({url: "res/config/config.json", type: Laya.Loader.JSON});
         arr.push({url: "res/atlas/ui_main.atlas", type: Laya.Loader.ATLAS});
 
+        arr.push({url: GameConfig.BmpFontPath, type: Laya.Loader.XML}, {url: GameConfig.BmpFontPath.replace(".fnt", ".png"), type: Laya.Loader.IMAGE});
+        arr.push({url: GameConfig.BmpFontPath2, type: Laya.Loader.XML}, {url: GameConfig.BmpFontPath2.replace(".fnt", ".png"), type: Laya.Loader.IMAGE});
+
         Laya.loader.load(arr, Laya.Handler.create(this, this.onLoadedCmp));
     }
 
@@ -25,6 +28,16 @@ class GameLoadingState extends State {
 
         let json:JSON=Laya.loader.getRes("res/config/config.json");
         ConfigTabel.initConfig(json);
+
+        let bitmapFont: Laya.BitmapFont = new Laya.BitmapFont();
+        bitmapFont.parseFont(Laya.Loader.getRes(GameConfig.BmpFontPath), Laya.Loader.getRes(GameConfig.BmpFontPath.replace(".fnt", ".png")));
+        bitmapFont.setSpaceWidth(10);
+        Laya.Text.registerBitmapFont(GameConfig.BmpFntName, bitmapFont);
+
+        let bitmapFont2: Laya.BitmapFont = new Laya.BitmapFont();
+        bitmapFont2.parseFont(Laya.Loader.getRes(GameConfig.BmpFontPath2), Laya.Loader.getRes(GameConfig.BmpFontPath2.replace(".fnt", ".png")));
+        bitmapFont2.setSpaceWidth(10);
+        Laya.Text.registerBitmapFont(GameConfig.BmpFntName2, bitmapFont2);
 
         this.preloadRes();
     }

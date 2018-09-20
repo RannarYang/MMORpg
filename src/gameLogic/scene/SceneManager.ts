@@ -11,6 +11,7 @@ class SceneManager{
     private _layer_map: Laya.Sprite;
     private _layer_actor: Laya.Sprite;
     private _layer_effect: Laya.Sprite;
+    private _layer_tip: Laya.Sprite;
     /**调试层 */
     private _layer_debug: Laya.Sprite;
     
@@ -38,17 +39,20 @@ class SceneManager{
         this._layer_map = new Laya.Sprite();
         this._layer_actor = new Laya.Sprite();
         this._layer_effect = new Laya.Sprite();
+        this._layer_tip = new Laya.Sprite();
         this._layer_debug = new Laya.Sprite();
 
         this._layerDic = new ObjDictionary();
         this._layerDic.add(LayerEnum.MapLayer, this._layer_map);
         this._layerDic.add(LayerEnum.ActorLayer, this._layer_actor);
         this._layerDic.add(LayerEnum.EffectLayer, this._layer_effect);
+        this._layerDic.add(LayerEnum.TipLayer, this._layer_tip);
         this._layerDic.add(LayerEnum.DebugLayer, this._layer_debug);
 
         this._scene.addChild(this._layer_map);
         this._scene.addChild(this._layer_actor);
         this._scene.addChild(this._layer_effect);
+        this._scene.addChild(this._layer_tip);
         this._scene.addChild(this._layer_debug);
 
         Laya.stage.addChild(this._scene);
@@ -89,6 +93,11 @@ class SceneManager{
 
     public addToContainer3d(node: Laya.Node) {
         this._container3d.addChild(node);
+    }
+
+    public showDamageNum(num: number, pos: Laya.Point, type:number): void {
+        let hurtNum: HurtNum = ObjPool.I.getObject(HurtNum) as HurtNum;
+        hurtNum.start(pos, num + "", type)
     }
 
     public update(): void {

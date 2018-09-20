@@ -29,6 +29,8 @@ class GameConfig{
     public static SoundPath: string = "res/sound/";
     
     public static EffectPath: string = "res/effects/";
+
+    public static FrameLoopDelay: number = 1;
     
     public static BmpFontPath: string = "res/bitmapFont/font.fnt";
     

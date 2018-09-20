@@ -22,6 +22,7 @@ class AttackEffectUtils{
         this._defender.actorPropertyManager.changeProperty(ActorPropertyType.HP, -hp);
         console.log("tiger hp: ", this._defender.actorPropertyManager.getProperty(ActorPropertyType.HP));
         // TODO:跳伤害数字
+        SceneManager.I.showDamageNum(-hp,this._defender.disObjCtrl.screenPos2d, this._defender.actorType)
     }
     private playEffect(): void {
         if(Utils.StringUtil.isNullOrEmpty(this._skill.skillBean.hitEffect)) return;
