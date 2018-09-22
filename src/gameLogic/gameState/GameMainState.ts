@@ -3,7 +3,7 @@
  * @Describe: 游戏主城状态
  * @Date: 2018-09-16 20:41:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 23:39:39
+ * @Last Modified time: 2018-09-22 23:36:26
  */
 
 class GameMainState extends State{
@@ -13,7 +13,7 @@ class GameMainState extends State{
     public onEnter(obj: Object = null): void {
 
         let param: ActorParam = new ActorParam();
-        param.pos = new Laya.Point(50, 20);
+        param.pos = new Laya.Point(27, 37);
         let player = ActorManager.I.create(1000, ActorType.Player, ActorCamp.Player, param) as Player;
         player.changeState(ActorState.Idle);
 

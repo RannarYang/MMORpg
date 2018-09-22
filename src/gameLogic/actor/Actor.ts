@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 00:34:46
+ * @Last Modified time: 2018-09-22 23:29:13
  */
 
 class Actor extends ActorBase{
@@ -46,6 +46,7 @@ class Actor extends ActorBase{
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.HP, this._actorBean.hp);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Atk, this._actorBean.atk);
         this._actorPropertyManager.setBaseProperty(ActorPropertyType.Speed, this._actorBean.speed);
+        this._actorPropertyManager.setBaseProperty(ActorPropertyType.FlySpeed, this._actorBean.flyspeed);
     }
     public useSkill(skillId: number): boolean {
         let skill: Skill = this._skillManager.getSkill(skillId);

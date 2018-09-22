@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 23:39:49
+ * @Last Modified time: 2018-09-22 23:32:10
  */
 
 class InputManager{
@@ -19,7 +19,24 @@ class InputManager{
         if(e){
             switch(e["keyCode"]) {
                 case 81: // Q
-                    ActorManager.player.changeState(ActorState.Move);
+                    // ActorManager.player.changeState(ActorState.Move);
+                    // 32 13 44 22
+                    /*
+                    let param: ActorMoveParam = new ActorMoveParam();
+                    param.path = [];
+                    param.path.push(new Laya.Point(32, 13));
+                    param.path.push(new Laya.Point(44, 22));
+                    param.moveType = ActorState.Fly;
+                    ActorManager.player.changeState(ActorState.Fly, param);
+                    */
+
+                    let param: ActorMoveParam = new ActorMoveParam();
+                    param.path = [];
+                    param.path.push(new Laya.Point(27, 37));
+                    param.path.push(new Laya.Point(35, 29));
+                    param.path.push(new Laya.Point(66, 33));
+                    param.moveType = ActorState.Fly;
+                    ActorManager.player.changeState(ActorState.Fly, param);
                     break;
                 case 87: // W
                     // ActorManager.player.useSkill(1000);

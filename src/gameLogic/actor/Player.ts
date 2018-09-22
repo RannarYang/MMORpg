@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-09 22:51:02 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 13:51:53
+ * @Last Modified time: 2018-09-22 22:53:49
  */
 
 class Player extends Actor{
@@ -17,5 +17,6 @@ class Player extends Actor{
         this._stateMachine.registerState(ActorState.Idle, new ActorIdleState(this));
         this._stateMachine.registerState(ActorState.Move, new ActorMoveState(this));
         this._stateMachine.registerState(ActorState.Skill, new ActorSkillState(this));
+        this._stateMachine.registerState(ActorState.Fly, new ActorFlyState(this));
     }
 }
