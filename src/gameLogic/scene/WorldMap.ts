@@ -2,8 +2,8 @@
  * @Author: RannarYang
  * @Describe: 世界地图
  * @Date: 2018-09-09 22:47:11 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-09-12 19:25:06
+ * @Last Modified by: RannarYang
+ * @Last Modified time: 2018-09-26 00:15:32
  */
 
 class WorldMap{
@@ -104,7 +104,7 @@ class WorldMap{
      * @param y 场景的纵坐标
      * @return x:格子的行，y:格子的列
      */
-    private scenePosToGrid(x: number, y: number): Laya.Point {
+    public scenePosToGrid(x: number, y: number): Laya.Point {
         let p: Laya.Point = new Laya.Point();
         p.x = Math.floor(x / this._mapAttr.mapTileW);
         p.y = Math.floor(y / this._mapAttr.mapTileH);

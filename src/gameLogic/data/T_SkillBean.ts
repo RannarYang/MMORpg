@@ -1,5 +1,5 @@
 class T_SkillBean {
-    public static ClassName = "T_SkillBean";
+    public static ClassName = "T_SkillBean"
     /** 编号 */
     public id: number; 
     /** 名称 */
@@ -16,7 +16,7 @@ class T_SkillBean {
     public hitEffect: string; 
     /** 声音 */
     public sound: string; 
-    /** 范围类型，1圆形，2矩形 */
+    /** 范围类型，1圆形，2扇形 */
     public rangeType: number; 
     /** 范围参数 */
     public rangeParam: string; 
@@ -24,8 +24,8 @@ class T_SkillBean {
     public nextSkill: number; 
     /** 是否是连招 */
     public isLinkSkill: boolean; 
-    /** cd */
+    /** 冷却时间 */
     public cd: number; 
-    /** priority */
+    /** 优先级 */
     public priority: number; 
 }

@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-15 14:10:34 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 11:18:38
+ * @Last Modified time: 2018-09-26 00:22:07
  */
 
 class BeanFactory{
@@ -15,6 +15,9 @@ class BeanFactory{
     }
     public static getSkillById(id: number): T_SkillBean {
         return GameDataManager.I.t_skillContainer.getSkillByID(id);
+    }
+    public static getSpawnerById(id: number): T_SpawnerBean {
+        return GameDataManager.I.t_spawnerContainer.getSpawnerById(id);
     }
     public static getActionBeans(ownerID: number): T_ActionBean[] {
         let res: T_ActionBean[] = []

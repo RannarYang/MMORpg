@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-22 23:29:13
+ * @Last Modified time: 2018-09-26 00:49:22
  */
 
 class Actor extends ActorBase{
@@ -108,6 +108,7 @@ class Actor extends ActorBase{
         if(this._disObjCtrl) {
             this._disObjCtrl.onDestroy();
         }
+        console.log("actor on destroy: ", this._templateID)
     }
     public update(): void {
         if(this._disObjCtrl) {

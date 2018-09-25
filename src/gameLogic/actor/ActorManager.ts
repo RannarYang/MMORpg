@@ -3,7 +3,7 @@
  * @Describe: 角色管理器
  * @Date: 2018-09-17 13:23:41 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:34:00
+ * @Last Modified time: 2018-09-26 00:53:59
  */
 
 class ActorManager{
@@ -25,7 +25,10 @@ class ActorManager{
                 ActorManager.player = actor as Player;
                 break;
             case ActorType.NPC:
-                // actor 
+                actor = new NPC(templateID, type, camp, actorID);
+                break;
+            case ActorType.Bubble:
+                actor = new ActorBubble(templateID, type, camp, actorID);
                 break;
             case ActorType.Monster:
                 actor = new Monster(templateID, type, camp, actorID);
@@ -57,7 +60,8 @@ class ActorManager{
     }
     public removeById(actorID: number): void{
         if(actorID) {
-            this._container.remove(actorID);
+            let actor = this.getActorById(actorID);
+            this.remove(actor);
         } else {
             console.warn("can not remove a null actor");
         }

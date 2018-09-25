@@ -3,7 +3,7 @@
  * @Describe: 游戏加载状态
  * @Date: 2018-09-16 20:42:11 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 23:04:59
+ * @Last Modified time: 2018-09-26 00:37:20
  */
 
 class GameLoadingState extends State {
@@ -44,8 +44,10 @@ class GameLoadingState extends State {
     private preloadRes(): void {
         let arr = [];
         arr.push(GameConfig.EffectPath + "hit_red/hit_red.lh");
+        arr.push(GameConfig.ModelPath + "fly_point/fly_point.lh");
         arr.push(GameConfig.ModelPath + "cike/cike.lh");
-        arr.push(GameConfig.ModelPath + "monster_001/laohu.lh")
+        arr.push(GameConfig.ModelPath + "monster_001/laohu.lh");
+        arr.push(GameConfig.ModelPath + "npc_001/npc.lh");
         Laya.loader.create(arr, Laya.Handler.create(this, this.onResLoadCmp));
     }
     

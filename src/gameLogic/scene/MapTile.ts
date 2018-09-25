@@ -3,7 +3,7 @@
  * @Describe: 地图块
  * @Date: 2018-09-10 22:56:06 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-10 23:19:55
+ * @Last Modified time: 2018-09-26 00:39:03
  */
 
 class MapTile{
@@ -28,8 +28,12 @@ class MapTile{
     /**加载地图块 */
     private _handler: Laya.Handler;
     public loadTile(): void {
+        if(this._isLoaded) return;
+        // 加载地图上的角色
+        SpawnerManager.I.onTileLoaded(this._col, this._row);
         this._handler = Laya.Handler.create(this, this.onLoadCmp);
         Laya.loader.load(this._resUrl, this._handler);
+        this._isLoading = true;
     }
     private onLoadCmp() {
         if(this._handler) {
@@ -43,9 +47,13 @@ class MapTile{
         this._disObj.x = this._col * 300;
         this._disObj.y = this._row * 300;
         this._parent.addChild(this._disObj);
+
+
     }
 
     public unloadTile(): void {
+        SpawnerManager.I.onTileUnloaded(this._col, this._row);
+        // 删除角色
         this._disObj.graphics.clear();
         if(this._isLoading) {
             Laya.loader.cancelLoadByUrl(this._resUrl);
