@@ -3,7 +3,7 @@
  * @Describe: 角色移动状态
  * @Date: 2018-09-14 22:40:05 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 22:28:13
+ * @Last Modified time: 2018-09-26 23:45:20
  */
 
 class ActorMoveState extends ActorBaseState{
@@ -44,6 +44,7 @@ class ActorMoveState extends ActorBaseState{
         } else {
             // 结束移动
             this._actor.changeState(ActorState.Idle);
+            this._actor.behaviorManager.event(BehaviorEvent.EventOccur, BehaviorEvent.MoveFinish);
         }
     }
     public getStateKey(): string {

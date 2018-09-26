@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:00:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-16 22:36:05
+ * @Last Modified time: 2018-09-26 23:34:53
  */
 
 class NavManager{
@@ -60,6 +60,9 @@ class NavManager{
                 path[i] = new Laya.Point(tempNode.x, tempNode.y);
             }
             this._nodeGrid.reset();
+        }
+        if(path.length <=0) {
+            console.warn("can not find path")
         }
         return path;
     }

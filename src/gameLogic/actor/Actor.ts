@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 00:49:22
+ * @Last Modified time: 2018-09-26 23:27:22
  */
 
 class Actor extends ActorBase{
@@ -28,6 +28,11 @@ class Actor extends ActorBase{
     public get skillManager(): SkillManager {
         return this._skillManager;
     }
+    /**行为管理器 */
+    protected _behaviorManager: BehaviorManager;
+    public get behaviorManager(): BehaviorManager {
+        return this._behaviorManager;
+    }
     public _actionDic: ObjDictionary;
 
     constructor(templateID: number, actorType: number, actorCamp: number, actorID: number){
@@ -40,6 +45,7 @@ class Actor extends ActorBase{
         this.registerSkills();
         this.initProperty();
         this._disObjCtrl = new DisplayObjectController(this);
+        this._behaviorManager = new BehaviorManager(this);
     }
     protected initProperty(): void {
         this._actorPropertyManager = new ActorPropertyManager(this);
@@ -113,6 +119,9 @@ class Actor extends ActorBase{
     public update(): void {
         if(this._disObjCtrl) {
             this._disObjCtrl.update();
+        }
+        if(this._behaviorManager){
+            this._behaviorManager.update();
         }
     }
     

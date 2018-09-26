@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:43:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-22 22:50:39
+ * @Last Modified time: 2018-09-26 23:09:38
  */
 
 class ActorMoveParam{
@@ -12,5 +12,8 @@ class ActorMoveParam{
     public targetPos: Laya.Point;
     constructor(){
 
+    }
+    public isFly(): boolean {
+        return this.moveType == ActorState.Fly || this.moveType == ActorState.Fly2;
     }
 }

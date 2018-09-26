@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-22 23:32:10
+ * @Last Modified time: 2018-09-26 23:48:27
  */
 
 class InputManager{
@@ -40,7 +40,23 @@ class InputManager{
                     break;
                 case 87: // W
                     // ActorManager.player.useSkill(1000);
-                    MainUIWindow.I.useSkill(1000);
+                    // MainUIWindow.I.useSkill(1000);
+                    let moveToParam: ActorMoveParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Move;
+                    moveToParam.targetPos = new Laya.Point(32, 13);
+                    let moveToBehavior: MoveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
+                    moveToParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Fly;
+                    moveToParam.path = [];
+                    moveToParam.path.push(new Laya.Point(32, 13));
+                    moveToParam.path.push(new Laya.Point(42, 22));
+                    moveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
                     break;
             }
         }
