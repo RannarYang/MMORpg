@@ -36,6 +36,7 @@ class BehaviorManager extends Laya.EventDispatcher{
             }
         } else {
             if(this._curBehavior.isFinish) {
+                this._curBehavior.stop();
                 this._curBehavior = null
             } else {
                 this._curBehavior.update();

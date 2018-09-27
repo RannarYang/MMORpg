@@ -3,7 +3,7 @@
  * @Describe: 飞行逻辑
  * @Date: 2018-09-22 22:46:29 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-22 23:39:04
+ * @Last Modified time: 2018-09-27 23:24:19
  */
 class ActorFlyState extends ActorBaseState{
     private _moveParam: ActorMoveParam;
@@ -63,6 +63,7 @@ class ActorFlyState extends ActorBaseState{
              // 结束移动
             this.reset();
             this._actor.changeState(ActorState.Idle);
+            this._actor.behaviorManager.event(BehaviorEvent.EventOccur, BehaviorEvent.MoveFinish);
         }
         
     }

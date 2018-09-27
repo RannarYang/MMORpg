@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-26 23:05:31 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 23:44:35
+ * @Last Modified time: 2018-09-27 23:55:54
  */
 
 class MoveToBehavior extends BaseBehavior{
@@ -29,9 +29,10 @@ class MoveToBehavior extends BaseBehavior{
             if(this._moveParam.isFly()) {
                 this._owner.changeState(ActorState.Fly, this._moveParam);
             } else {
-                let startX: number = ActorManager.player.disObjCtrl.disObj.x;
-                let startY: number = ActorManager.player.disObjCtrl.disObj.y;
-                let p: Laya.Point = NavManager.I.gridToScenePos(this._moveParam.targetPos.x, this._moveParam.targetPos.y);
+                let startX: number = this._owner.disObjCtrl.disObj.x;
+                let startY: number = this._owner.disObjCtrl.disObj.y;
+                let bestPos: Laya.Point = NavManager.I.getBestPos(this._owner.disObjCtrl.gridPos, this._moveParam.targetPos, this._moveParam.offset);
+                let p: Laya.Point = NavManager.I.gridToScenePos(bestPos.x, bestPos.y);
                 let path: Laya.Point[] = NavManager.I.findPathByScenePos(startX, startY, p.x, p.y);
                 if(path && path.length > 0) {
                     this._moveParam.path = path;
@@ -42,6 +43,6 @@ class MoveToBehavior extends BaseBehavior{
         }
     }
     public stop(): void {
-
+        this._moveParam = null;
     }
 }

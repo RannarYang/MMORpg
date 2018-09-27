@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 23:48:27
+ * @Last Modified time: 2018-09-27 23:59:37
  */
 
 class InputManager{
@@ -57,6 +57,17 @@ class InputManager{
                     moveToBehavior.init(moveToParam);
                     ActorManager.player.behaviorManager.add(moveToBehavior);
 
+                    let dialogParam: DialogToNPCParam = new DialogToNPCParam();
+                    dialogParam.spawnerId = 1000;
+                    let dialogBehavior: DialogToNPCBehavior = new DialogToNPCBehavior();
+                    dialogBehavior.init(dialogParam);
+                    ActorManager.player.behaviorManager.add(dialogBehavior);
+
+                    dialogParam = new DialogToNPCParam();
+                    dialogParam.spawnerId = 1001;
+                    dialogBehavior = new DialogToNPCBehavior();
+                    dialogBehavior.init(dialogParam);
+                    ActorManager.player.behaviorManager.add(dialogBehavior);
                     break;
             }
         }

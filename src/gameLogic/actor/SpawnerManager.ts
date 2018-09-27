@@ -3,7 +3,7 @@
  * @Describe: 刷怪管理器
  * @Date: 2018-09-26 00:05:27 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 00:47:34
+ * @Last Modified time: 2018-09-27 23:13:10
  */
 
 class SpawnerManager{
@@ -60,6 +60,7 @@ class SpawnerManager{
                         camp = ActorCamp.Neutral;
                     }
                     actor = ActorManager.I.create(bean.templateID, bean.type, camp, param);
+                    bean.actorID = actor.actorID;
                     actor.changeState(ActorState.Idle);
 
                     spawnerBean = new SpawnerBean();

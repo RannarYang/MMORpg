@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-16 17:00:07 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 23:34:53
+ * @Last Modified time: 2018-09-27 23:31:23
  */
 
 class NavManager{
@@ -87,6 +87,27 @@ class NavManager{
         let gridPos: Laya.Point = this.scenePosToGrid(x, y);
         let node: AStarNode = this._nodeGrid.getNode(gridPos.x, gridPos.y)
         return node.walkFlag == 2;
+    }
+    public getBestPos(start: Laya.Point, end: Laya.Point, offset: number): Laya.Point {
+        let col: number, row: number = 0;
+        if(start.x < end.x) {
+            col = end.x - offset;
+        } else if(start.x > end.x) {
+            col = end.x + offset;
+        } else {
+            col = end.x;
+        }
+
+        if(start.y < end.y) {
+            row = end.y - offset;
+        } else if(start.y > end.y) {
+            row = end.y + offset;
+        } else {
+            row = end.y;
+        }
+
+
+        return new Laya.Point(col, row);
     }
     /**单例 */
     private static instance: NavManager;
