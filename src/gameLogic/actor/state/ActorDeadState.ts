@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 22:28:44 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 23:09:18
+ * @Last Modified time: 2018-10-01 23:21:41
  */
 class ActorDeadState extends ActorBaseState{
     constructor(owner: Object){
@@ -19,6 +19,7 @@ class ActorDeadState extends ActorBaseState{
             if(this._actor.attackerID > 0) {
                 let attacker: Actor = ActorManager.I.getActorById(this._actor.attackerID);
                 if(attacker) {
+                    console.error("send monster dead")
                     attacker.behaviorManager.event(BehaviorEvent.EventOccur, BehaviorEvent.KillMonster);
                 }
             }

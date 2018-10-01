@@ -3,7 +3,7 @@
  * @Describe: 游戏加载状态
  * @Date: 2018-09-16 20:42:11 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 00:37:20
+ * @Last Modified time: 2018-10-01 23:37:30
  */
 
 class GameLoadingState extends State {
@@ -48,6 +48,7 @@ class GameLoadingState extends State {
         arr.push(GameConfig.ModelPath + "cike/cike.lh");
         arr.push(GameConfig.ModelPath + "monster_001/laohu.lh");
         arr.push(GameConfig.ModelPath + "npc_001/npc.lh");
+        arr.push(GameConfig.ModelPath + "boss_002/ChiMoYan_Skin.lh");
         Laya.loader.create(arr, Laya.Handler.create(this, this.onResLoadCmp));
     }
     

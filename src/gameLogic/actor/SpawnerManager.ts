@@ -3,7 +3,7 @@
  * @Describe: 刷怪管理器
  * @Date: 2018-09-26 00:05:27 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 23:09:33
+ * @Last Modified time: 2018-10-01 23:57:39
  */
 
 class SpawnerManager{
@@ -27,6 +27,7 @@ class SpawnerManager{
                     if(bean) {
                         let param = new ActorParam();
                         param.pos = new Laya.Point(bean.posX, bean.posY);
+                        console.log("create: ", param);
                         param.dir = new Laya.Point();
                         param.spawnerId = sbean.spawnerID;
                         let actor: Actor = ActorManager.I.create(bean.templateID, bean.type, ActorCamp.Enemy, param, sbean.actorID);

@@ -3,7 +3,7 @@
  * @Describe: 飞行逻辑
  * @Date: 2018-09-22 22:46:29 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:32:47
+ * @Last Modified time: 2018-10-01 23:34:40
  */
 class ActorFlyState extends ActorBaseState{
     private _moveParam: ActorMoveParam;
@@ -14,13 +14,15 @@ class ActorFlyState extends ActorBaseState{
     }
     // 起飞点和落地点
     public onEnter(obj: Object = null): void {
-        console.log("enter fly state");
         this._moveParam = obj as ActorMoveParam;
+        
         if(!this._moveParam || !this._moveParam.path){
             console.warn("ActorFlyState moveParam is null");
             this._actor.changeState(ActorState.Idle);
         } else {
-            super.onEnter(obj);
+            if(this._actor && this._actor.disObjCtrl.isObj3dLoaded &&  this._actor.disObjCtrl.aniController) {
+                this._actor.disObjCtrl.aniController.playAniByState(this._moveParam.moveType);
+            }
             this.fly();
         }
     }

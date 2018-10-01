@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:52:56
+ * @Last Modified time: 2018-10-01 23:47:11
  */
 
 class DisplayObjectController{
@@ -61,14 +61,19 @@ class DisplayObjectController{
         let _disObj3d = this._disObj3d = Laya.Sprite3D.instantiate(original);
         SceneManager.I.addToContainer3d(_disObj3d);
         this._isObj3dLoaded = true;
-        _disObj3d.transform.localScale = new Laya.Vector3(0.1, 0.1, 0.1);
+
+        if(this._owner.isActorType(ActorType.Boss)) {
+            _disObj3d.transform.localScale = new Laya.Vector3(0.13, 0.13, 0.13);
+        } else {
+            _disObj3d.transform.localScale = new Laya.Vector3(0.1, 0.1, 0.1);
+        }
 
         let ms3d: Laya.MeshSprite3D = _disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;
         if(ms3d) {
             let skinAni: Laya.SkinAnimations = ms3d.addComponent(Laya.SkinAnimations) as Laya.SkinAnimations;
             skinAni.templet = Laya.AnimationTemplet.load(GameConfig.ModelPath + this._owner.actorBean.fileAni);
             this._aniController = new AnimationController(skinAni, this._owner._actionDic);
-
+            this.toggleAlpha(false, true);
             // !!!!!!!!!!修正主角的朝向
             if(this._owner.isActorType(ActorType.Player)) {
                 this.changeAngle(new Laya.Point(this._disObj.x + 100, this._disObj.y))
@@ -141,9 +146,9 @@ class DisplayObjectController{
         this._disObj3d.transform.localRotationEuler = new Laya.Vector3(0, Tools.R2A(radian) + 90, 0,)
     }
     private _isAlpha: boolean = false;
-    public toggleAlpha(flag: boolean) {
+    public toggleAlpha(flag: boolean, force: boolean = false) {
         if(!this._isObj3dLoaded) return;
-        if(flag == this._isAlpha) return;
+        if(flag == this._isAlpha && !force) return;
         this._isAlpha = flag;
         let val = flag ? 0.7 : 1;
         let ms3d: Laya.MeshSprite3D = this._disObj3d.getChildByName(this._owner.actorBean.meshName) as Laya.MeshSprite3D;

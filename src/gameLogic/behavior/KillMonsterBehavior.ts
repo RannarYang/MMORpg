@@ -3,7 +3,7 @@
  * @Describe: 击杀怪物的行为
  * @Date: 2018-10-01 09:27:02 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 21:50:43
+ * @Last Modified time: 2018-10-01 23:28:34
  */
 
 class KillMonsterBehavior extends BaseBehavior{
@@ -14,6 +14,7 @@ class KillMonsterBehavior extends BaseBehavior{
     }
     public init(param: Object = null): void {
         this._killCount = param as number;
+        this._killedNum = 0;
     }
     
     private attack(): void {
@@ -51,6 +52,7 @@ class KillMonsterBehavior extends BaseBehavior{
         }
     }
     public onSubBehaviorFinish(obj: Object): void {
+        console.log("onSubBehaviorFinish=====", obj);
         let str: string = obj as string;    
         if(str == BehaviorEvent.KillMonster) {
             this._killedNum++;

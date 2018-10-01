@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-10-01 21:13:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 23:06:30
+ * @Last Modified time: 2018-10-01 23:24:20
  */
 
 class MonsterBehavior extends BaseBehavior{

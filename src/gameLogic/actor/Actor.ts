@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 23:03:26
+ * @Last Modified time: 2018-10-01 23:45:53
  */
 
 class Actor extends ActorBase{
@@ -109,7 +109,6 @@ class Actor extends ActorBase{
         return this._actorPropertyManager.getProperty(ActorPropertyType.HP) < 0;
     }
     public onAttacked(skill: Skill): void {
-        console.log("i am attacked", this._actorID);
         if(!this.isDead()) {
             this._attackerID = skill.owner.actorID;
             AttackEffectUtils.I.doEffect(skill, this);

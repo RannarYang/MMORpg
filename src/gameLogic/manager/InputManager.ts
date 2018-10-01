@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:31:34
+ * @Last Modified time: 2018-10-01 23:35:18
  */
 
 class InputManager{
@@ -88,6 +88,28 @@ class InputManager{
                     let killMonsterBehavior: KillMonsterBehavior = new KillMonsterBehavior();
                     killMonsterBehavior.init(3);
                     ActorManager.player.behaviorManager.add(killMonsterBehavior)
+
+                    moveToParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Move;
+                    moveToParam.targetPos = new Laya.Point(104, 50);
+                    moveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
+                    moveToParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Fly2;
+                    moveToParam.path = [];
+                    moveToParam.path.push(new Laya.Point(104, 50));
+                    moveToParam.path.push(new Laya.Point(124, 55));
+                    moveToParam.path.push(new Laya.Point(125, 34));
+                    moveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
+                    killMonsterBehavior = new KillMonsterBehavior();
+                    killMonsterBehavior.init(1);
+                    ActorManager.player.behaviorManager.add(killMonsterBehavior)
+
                     break;
             }
         }
