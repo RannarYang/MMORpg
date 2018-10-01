@@ -3,7 +3,7 @@
  * @Describe: 飞行逻辑
  * @Date: 2018-09-22 22:46:29 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-27 23:24:19
+ * @Last Modified time: 2018-10-01 10:32:47
  */
 class ActorFlyState extends ActorBaseState{
     private _moveParam: ActorMoveParam;
@@ -14,6 +14,7 @@ class ActorFlyState extends ActorBaseState{
     }
     // 起飞点和落地点
     public onEnter(obj: Object = null): void {
+        console.log("enter fly state");
         this._moveParam = obj as ActorMoveParam;
         if(!this._moveParam || !this._moveParam.path){
             console.warn("ActorFlyState moveParam is null");
@@ -53,7 +54,7 @@ class ActorFlyState extends ActorBaseState{
 
             let speed: number = this._actor.actorPropertyManager.getProperty(ActorPropertyType.FlySpeed);
             let distance: number = Tools.distancePoint(begin, end);
-            this._duration = Math.round(distance/speed/10 * 1000);
+            this._duration = Math.ceil(distance/speed/10 * 1000);
             this._actor.disObjCtrl.changeAngle(end);
             this._dt = this._numPoints / 30;
 
@@ -72,11 +73,23 @@ class ActorFlyState extends ActorBaseState{
     private tweenMove(): void {
         if(this._step < this.pathP.length) {
             // 进行位移
+            let duration = this._duration - this._step * this._dt;
+            let endX: number = this.pathP[this._step].x;
+            let endY: number = this.pathP[this._step].y;
             if(!this._tween) {
-                this._tween = Laya.Tween.to(this._actor.disObjCtrl.disObj, {x: this.pathP[this._step].x, y: this.pathP[this._step].y}, this._duration - this._step * this._dt, Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
+                this._tween = Laya.Tween.to(this._actor.disObjCtrl.disObj, {x: endX, y: endY}, duration, Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
             } else {
-                this._tween.to(this._actor.disObjCtrl.disObj, {x:this.pathP[this._step].x, y:this.pathP[this._step].y}, this._duration - this._step * this._dt,  Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
+                this._tween.to(this._actor.disObjCtrl.disObj, {x: endX, y: endY}, duration,  Laya.Ease.linearNone, Laya.Handler.create(this, this.tweenMove));
             }
+            Laya.timer.once(this._duration - this._step * this._dt + 100, this, ()=>{
+                if(this._actor.disObjCtrl.disObj.x == endX && this._actor.disObjCtrl.disObj.y == endY) {
+                    if(this._tween) {
+                        this._tween.complete();
+                        this.tweenMove();
+                    }
+                    
+                }
+            })
             this._step ++;
         } else {
             this._step = 0;
@@ -88,6 +101,9 @@ class ActorFlyState extends ActorBaseState{
         this.reset();
     }
     private reset(): void {
+        this.pathP = null;
+        this._duration = 0;
+        this._dt = 0;
         this._step = 0;
         this._flyStep = 0;
         this._moveParam = null;

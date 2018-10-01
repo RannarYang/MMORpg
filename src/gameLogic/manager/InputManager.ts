@@ -3,7 +3,7 @@
  * @Describe: 输入管理器
  * @Date: 2018-09-09 23:00:49 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-27 23:59:37
+ * @Last Modified time: 2018-10-01 10:31:34
  */
 
 class InputManager{
@@ -68,6 +68,26 @@ class InputManager{
                     dialogBehavior = new DialogToNPCBehavior();
                     dialogBehavior.init(dialogParam);
                     ActorManager.player.behaviorManager.add(dialogBehavior);
+
+                    moveToParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Move;
+                    moveToParam.targetPos = new Laya.Point(27, 37);
+                    moveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
+                    moveToParam = new ActorMoveParam();
+                    moveToParam.moveType = ActorState.Fly;
+                    moveToParam.path = [];
+                    moveToParam.path.push(new Laya.Point(27, 37));
+                    moveToParam.path.push(new Laya.Point(66, 33));
+                    moveToBehavior = new MoveToBehavior();
+                    moveToBehavior.init(moveToParam);
+                    ActorManager.player.behaviorManager.add(moveToBehavior);
+
+                    let killMonsterBehavior: KillMonsterBehavior = new KillMonsterBehavior();
+                    killMonsterBehavior.init(3);
+                    ActorManager.player.behaviorManager.add(killMonsterBehavior)
                     break;
             }
         }

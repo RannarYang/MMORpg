@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-27 23:00:50 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-28 00:04:19
+ * @Last Modified time: 2018-10-01 10:36:59
  */
 
 class DialogToNPCBehavior extends BaseBehavior{
@@ -22,9 +22,7 @@ class DialogToNPCBehavior extends BaseBehavior{
         let bean: T_SpawnerBean = this._bean = BeanFactory.getSpawnerById(this._param.spawnerId);
         this.moveTo(new Laya.Point(bean.posX, bean.posY), 1);
     }
-    public onSubBehaviorFinish(): void {
-        // 对话
-        this._sub = null;
+    public onSubBehaviorFinish(obj: Object): void {
         // 改变npc的朝向
         let npc: Actor = ActorManager.I.getActorById(this._bean.actorID);
         npc.disObjCtrl.changeAngle(this._owner.disObjCtrl.screenPos2d);

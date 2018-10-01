@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 19:09:15 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:24:27
+ * @Last Modified time: 2018-10-01 10:53:26
  */
 
 class AttackEffectUtils{
@@ -22,7 +22,7 @@ class AttackEffectUtils{
         this._defender.actorPropertyManager.changeProperty(ActorPropertyType.HP, -hp);
         console.log("tiger hp: ", this._defender.actorPropertyManager.getProperty(ActorPropertyType.HP));
         // TODO:跳伤害数字
-        SceneManager.I.showDamageNum(-hp,this._defender.disObjCtrl.screenPos2d, this._defender.actorType)
+        SceneManager.I.showDamageNum(-hp,this._defender.disObjCtrl.hpScreenPos, this._defender.actorType)
     }
     private playEffect(): void {
         if(Utils.StringUtil.isNullOrEmpty(this._skill.skillBean.hitEffect)) return;

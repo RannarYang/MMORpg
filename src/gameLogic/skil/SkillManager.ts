@@ -3,7 +3,7 @@
  * @Describe: 技能管理器
  * @Date: 2018-09-17 11:35:30 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 00:43:09
+ * @Last Modified time: 2018-10-01 09:53:14
  */
 
 class SkillManager{
@@ -15,7 +15,17 @@ class SkillManager{
         this._skillDic = new ObjDictionary();
         this._cdMgr = new CDManager();
     }
-
+    public getAllCdSkills(): Skill[] {
+        let res: Skill[] = [];
+        let skill: Skill;
+        for(let key in this._skillDic.container) {
+            skill = this._skillDic.container[key];
+            if(!skill.skillBean.isLinkSkill && this._cdMgr.isCoolDown(skill.templateID)) {
+                res.push(skill);
+            }
+        }
+        return res;
+    }
     public add(skill: Skill): void {
         if(skill) {
             this._skillDic.add(skill.templateID, skill);

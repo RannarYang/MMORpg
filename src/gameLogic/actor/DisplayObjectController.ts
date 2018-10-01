@@ -3,7 +3,7 @@
  * @Describe: 显示对象控制器
  * @Date: 2018-09-13 23:24:09 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-27 23:34:44
+ * @Last Modified time: 2018-10-01 10:52:56
  */
 
 class DisplayObjectController{
@@ -79,13 +79,20 @@ class DisplayObjectController{
     public get screenPos2d(): Laya.Point {
         return new Laya.Point(this._disObj.x, this._disObj.y);
     }
-
+    public get hpScreenPos(): Laya.Point {
+        return new Laya.Point(this._disObj.x + this._owner.actorBean.xOffset, this._disObj.y + this._owner.actorBean.yOffset);
+    }
     public get gridPos(): Laya.Point {
         return NavManager.I.scenePosToGrid(this._disObj.x, this._disObj.y)
     }
     protected _dir2d: Laya.Point = new Laya.Point(1, 0);
     public get dir2d(): Laya.Point {
         return this._dir2d;
+    }
+
+    /**角色之间的距离 */
+    public distance(actor: Actor) : number{
+        return Tools.distancePoint(new Laya.Point(this._disObj.x, this._disObj.y), new Laya.Point(actor.disObjCtrl.disObj.x, actor.disObjCtrl.disObj.y));
     }
 
     public getPos3d(isLocal: boolean): Laya.Vector3 {

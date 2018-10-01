@@ -2,8 +2,8 @@
  * @Author: RannarYang
  * @Describe: 
  * @Date: 2018-09-17 14:21:58 
- * @Last Modified by:   RannarYang 
- * @Last Modified time: 2018-09-17 14:21:58 
+ * @Last Modified by: RannarYang
+ * @Last Modified time: 2018-10-01 09:51:10
  */
 
 class ObjDictionary{
@@ -17,6 +17,7 @@ class ObjDictionary{
     public get container(): Object {
         return this._container;
     }
+
 
     private _length: number;
     public get length() {

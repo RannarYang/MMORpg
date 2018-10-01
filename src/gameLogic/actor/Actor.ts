@@ -3,10 +3,14 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 23:27:22
+ * @Last Modified time: 2018-10-01 10:24:04
  */
 
 class Actor extends ActorBase{
+    private _attackerID: number;
+    public get attackerID(): number{
+        return this._attackerID;
+    }
     /**角色属性 */
     protected _actorPropertyManager: ActorPropertyManager;
     public get actorPropertyManager(): ActorPropertyManager {
@@ -17,7 +21,6 @@ class Actor extends ActorBase{
     public get disObjCtrl(): DisplayObjectController {
         return this._disObjCtrl;
     }
-
     /**角色状态机 */
     protected _stateMachine: StateMachine;
     public get stateMachine(): StateMachine {
@@ -101,14 +104,19 @@ class Actor extends ActorBase{
             this._stateMachine.changeState(stateKey, obj);
         }
     }
+        
     public isDead(): boolean {
         return this._actorPropertyManager.getProperty(ActorPropertyType.HP) < 0;
     }
     public onAttacked(skill: Skill): void {
         console.log("i am attacked", this._actorID);
         if(!this.isDead()) {
+            this._attackerID = skill.owner.actorID;
             AttackEffectUtils.I.doEffect(skill, this);
         }
+    }
+    public isStateOf(key: string): boolean {
+        return this._stateMachine.getCurrentState() == key;
     }
     public onDestroy(): void {
         if(this._disObjCtrl) {

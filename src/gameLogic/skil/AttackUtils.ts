@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 22:38:13 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:42:57
+ * @Last Modified time: 2018-10-01 09:45:35
  */
 
 class AttackUtils{
@@ -29,6 +29,24 @@ class AttackUtils{
             }
             if(flag) {
                 res.push(actor);
+            }
+        }
+        return res;
+    }
+    public static getNearestEnemy(attack: Actor) {
+        let res: Actor = null;
+        let actor: Actor;
+        let cont = ActorManager.I.container.container;
+        let distance: number, minDistance: number = Number.MAX_VALUE;
+        for(let key in cont) {
+            actor = cont[key];
+            if(actor.isDead() || actor.isCampOf(attack.actorCamp) || actor.isCampOf(ActorCamp.Neutral)) {
+                continue;
+            }
+            distance = attack.disObjCtrl.distance(actor);
+            if(distance < minDistance) {
+                minDistance = distance;
+                res = actor;
             }
         }
         return res;

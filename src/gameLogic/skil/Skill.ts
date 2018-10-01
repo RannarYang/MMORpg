@@ -3,7 +3,7 @@
  * @Describe: 技能类
  * @Date: 2018-09-17 10:31:17 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 01:03:45
+ * @Last Modified time: 2018-10-01 10:48:02
  */
 
 class Skill{
@@ -12,11 +12,17 @@ class Skill{
         return this._templateID;
     }
     protected _owner: Actor;
+    public get owner(): Actor {
+        return this._owner;
+    }
     protected _skillBean: T_SkillBean;
     public get skillBean(): T_SkillBean {
         return this._skillBean;
     }
     protected _rangeParam: RangeParam;
+    public get rangeParam(): RangeParam {
+        return this._rangeParam;
+    }
     constructor(templateID: number, owner: Actor){
         this._owner = owner;
         this._templateID = templateID;
@@ -34,15 +40,12 @@ class Skill{
         // 是否在攻击范围内
         
         let res = AttackUtils.getDefendersInRange(this._owner, this._rangeParam)
-        console.log("res length", res.length);
         for(let i = 0, len = res.length; i < len; i++) {
             res[i].onAttacked(this);
         }
-        console.log("skill: " + this._templateID + "key frame triggered")
     }
     protected antionFinishHandler(): void {
         // 连招
-        console.log("skill: " + this._templateID + "use complete");
         if(!this.useNextSkill()) {
             this._owner.changeState(ActorState.Idle);   
         }
@@ -89,6 +92,5 @@ class Skill{
         if(this._keyFrameHandler) {
             this._keyFrameHandler.recover();
         }
-        this._templateID = -1;
     }
 }

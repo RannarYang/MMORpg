@@ -21,7 +21,6 @@ class CDManager{
             cd = new CD(key, duration)
             this._cds.add(key, cd);
         }
-        console.log("duration: ", duration)
     }
     public removeCD(key: number): void {
         this._cds.remove(key);

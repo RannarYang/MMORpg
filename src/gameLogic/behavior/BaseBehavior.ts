@@ -3,7 +3,7 @@
  * @Describe: 行为基类
  * @Date: 2018-09-26 23:01:32 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-27 23:52:39
+ * @Last Modified time: 2018-10-01 10:15:58
  */
 
 class BaseBehavior{
@@ -30,14 +30,19 @@ class BaseBehavior{
 
     }
     public onBehaviorEvent(obj: Object): void {
-        if(this._sub && !this._sub.isFinish){
-            this._sub.onBehaviorEvent(obj);
-        }
-        if(this._sub && this._sub.isFinish) {
-            this.onSubBehaviorFinish()
+        if(this._sub){
+            if(!this._sub.isFinish) {
+                this._sub.onBehaviorEvent(obj);
+            }
+            if(this._sub.isFinish) {
+                this._sub = null;
+                this.onSubBehaviorFinish(obj);
+            }
+        } else {
+            this.onSubBehaviorFinish(obj);
         }
     }
-    public onSubBehaviorFinish(): void {
+    public onSubBehaviorFinish(obj: Object): void {
         
     }
     public start(): void {
