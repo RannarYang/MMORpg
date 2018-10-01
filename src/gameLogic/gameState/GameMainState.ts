@@ -3,7 +3,7 @@
  * @Describe: 游戏主城状态
  * @Date: 2018-09-16 20:41:59 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-26 23:28:44
+ * @Last Modified time: 2018-10-01 13:17:42
  */
 
 class GameMainState extends State{
@@ -23,5 +23,6 @@ class GameMainState extends State{
     public onUpdate(): void {
         SceneManager.I.update();
         ActorManager.I.update();
+        SpawnerManager.I.update();
     }
 }

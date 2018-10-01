@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 19:09:15 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:53:26
+ * @Last Modified time: 2018-10-01 13:30:01
  */
 
 class AttackEffectUtils{
@@ -20,7 +20,6 @@ class AttackEffectUtils{
     private doHp(): void {
         let hp: number = this._skill.skillBean.atk;
         this._defender.actorPropertyManager.changeProperty(ActorPropertyType.HP, -hp);
-        console.log("tiger hp: ", this._defender.actorPropertyManager.getProperty(ActorPropertyType.HP));
         // TODO:跳伤害数字
         SceneManager.I.showDamageNum(-hp,this._defender.disObjCtrl.hpScreenPos, this._defender.actorType)
     }

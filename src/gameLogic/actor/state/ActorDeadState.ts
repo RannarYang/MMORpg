@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 22:28:44 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:11:19
+ * @Last Modified time: 2018-10-01 13:16:03
  */
 class ActorDeadState extends ActorBaseState{
     constructor(owner: Object){
@@ -21,6 +21,7 @@ class ActorDeadState extends ActorBaseState{
                     attacker.behaviorManager.event(BehaviorEvent.EventOccur, BehaviorEvent.KillMonster);
                 }
             }
+            SpawnerManager.I.onMonsterDead(this._actor.actorParam.spawnerId);
         }
         
     }
