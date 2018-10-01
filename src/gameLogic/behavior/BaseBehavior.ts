@@ -3,7 +3,7 @@
  * @Describe: 行为基类
  * @Date: 2018-09-26 23:01:32 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:15:58
+ * @Last Modified time: 2018-10-01 21:51:42
  */
 
 class BaseBehavior{
@@ -51,7 +51,29 @@ class BaseBehavior{
     public stop(): void {
 
     }
-
+    protected getBestSkill(): Skill {
+        let res: Skill = null;
+        let skills: Skill[] = this._owner.skillManager.getAllCdSkills();
+        if(skills && skills.length > 0) {
+            if(skills.length > 1) {
+                skills = skills.sort(this.compareSkill);
+            }
+            // 排序
+            return skills[0];
+        }
+        return res;
+    }
+    private compareSkill(a: Skill, b: Skill): number {
+        let cd1: number = a.skillBean.cd;
+        let cd2: number = b.skillBean.cd;
+        if(cd1 > cd2) {
+            return -1;
+        } else if(cd1 < cd2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     public update(): void {
         
     }

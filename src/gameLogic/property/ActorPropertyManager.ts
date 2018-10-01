@@ -3,7 +3,7 @@
  * @Describe: 属性管理器
  * @Date: 2018-09-12 23:41:11 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:35:20
+ * @Last Modified time: 2018-10-01 23:09:11
  */
 
 class ActorPropertyManager{
@@ -45,7 +45,9 @@ class ActorPropertyManager{
                 this._deltaProperty.setProperty(type, 0);
             } else if(hp <= 0) {
                 this._deltaProperty.setProperty(type, - this.getBaseProperty(type))
-                this._owner.changeState(ActorState.Dead);
+                if(!this._owner.isStateOf(ActorState.Dead)) {
+                    this._owner.changeState(ActorState.Dead);
+                }   
             } else {
                 this._deltaProperty.changeProperty(type, delta);
             }

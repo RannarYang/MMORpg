@@ -3,7 +3,7 @@
  * @Describe: 刷怪管理器
  * @Date: 2018-09-26 00:05:27 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 13:23:18
+ * @Last Modified time: 2018-10-01 23:09:33
  */
 
 class SpawnerManager{
@@ -28,17 +28,8 @@ class SpawnerManager{
                         let param = new ActorParam();
                         param.pos = new Laya.Point(bean.posX, bean.posY);
                         param.dir = new Laya.Point();
-                        param.spawnerId = bean.id;
-                        let camp = ActorCamp.Neutral;
-                        if(bean.type == ActorType.NPC) {
-                            camp = ActorCamp.Neutral;
-                        } else if(bean.type == ActorType.Monster || bean.type == ActorType.Boss) {
-                            camp = ActorCamp.Enemy;
-                        }else if(bean.type == ActorType.Bubble) {
-                            camp = ActorCamp.Neutral;
-                        }
-                        let actor: Actor = ActorManager.I.create(bean.templateID, bean.type, camp, param, sbean.actorID);
-                        bean.actorID = actor.actorID;
+                        param.spawnerId = sbean.spawnerID;
+                        let actor: Actor = ActorManager.I.create(bean.templateID, bean.type, ActorCamp.Enemy, param, sbean.actorID);
                         actor.changeState(ActorState.Idle);
                     }
                 }

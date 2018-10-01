@@ -3,7 +3,7 @@
  * @Describe: 动画控制器
  * @Date: 2018-09-13 22:47:28 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-19 00:54:13
+ * @Last Modified time: 2018-10-01 22:38:15
  */
 
 class AnimationController{
@@ -79,7 +79,9 @@ class AnimationController{
             if(this._curKeyFrameIndex < this._keyFrames.length) {
                 if(this._skinAni.player.currentKeyframeIndex > 2 * this._keyFrames[this._curKeyFrameIndex]) {
                     this._curKeyFrameIndex ++;
-                    this._keyFrameHandler.run();
+                    if(this._keyFrameHandler) {
+                        this._keyFrameHandler.run();
+                    }
                 }
             } else if(this._keyFrameHandler){
                 this._keyFrameHandler.recover();

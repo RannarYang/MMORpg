@@ -3,7 +3,7 @@
  * @Describe: 
  * @Date: 2018-09-17 21:10:00 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-09-17 22:35:42
+ * @Last Modified time: 2018-10-01 23:08:00
  */
 
 class Monster extends Actor{
@@ -17,5 +17,11 @@ class Monster extends Actor{
         this._stateMachine.registerState(ActorState.Move, new ActorMoveState(this));
         this._stateMachine.registerState(ActorState.Skill, new ActorSkillState(this));
         this._stateMachine.registerState(ActorState.Dead, new ActorDeadState(this));
+    }
+    public init(actorParam: ActorParam): void {
+        super.init(actorParam);
+        let behavior = new MonsterBehavior();
+        behavior.owner = this;
+        this._behaviorManager.add(behavior);
     }
 }

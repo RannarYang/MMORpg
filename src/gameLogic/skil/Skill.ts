@@ -3,7 +3,7 @@
  * @Describe: 技能类
  * @Date: 2018-09-17 10:31:17 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:48:02
+ * @Last Modified time: 2018-10-01 22:52:47
  */
 
 class Skill{
@@ -29,10 +29,8 @@ class Skill{
         this._skillBean = BeanFactory.getSkillById(templateID);
         this._rangeParam = new RangeParam(this._skillBean.rangeType, this._skillBean.rangeParam);
     }
-    protected _keyFrameHandler: Laya.Handler;
     protected playAni(): void {
-        this._keyFrameHandler = Laya.Handler.create(this, this.keyFrameHandler, null, false);
-        this._owner.disObjCtrl.aniController.playAniByID(this._skillBean.actionID, this._keyFrameHandler, Laya.Handler.create(this, this.antionFinishHandler));
+        this._owner.disObjCtrl.aniController.playAniByID(this._skillBean.actionID,  Laya.Handler.create(this, this.keyFrameHandler, null, false), Laya.Handler.create(this, this.antionFinishHandler));
     }
     protected keyFrameHandler(): void {
         // TODO: 触发伤害
@@ -89,8 +87,6 @@ class Skill{
     }
 
     public stop(): void {
-        if(this._keyFrameHandler) {
-            this._keyFrameHandler.recover();
-        }
+
     }
 }

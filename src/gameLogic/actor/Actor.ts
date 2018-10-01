@@ -3,7 +3,7 @@
  * @Describe: 角色类
  * @Date: 2018-09-14 22:17:39 
  * @Last Modified by: RannarYang
- * @Last Modified time: 2018-10-01 10:24:04
+ * @Last Modified time: 2018-10-01 23:03:26
  */
 
 class Actor extends ActorBase{
